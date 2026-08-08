@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Ghost Chat — Serverless P2P Encrypted Messenger</title>
+  <meta name="description" content="Ghost Chat is a serverless peer-to-peer encrypted messaging client. Zero central servers, zero cloud databases, zero metadata collection. Powered by Waku P2P & Signal Double Ratchet protocol." />
+  
+  <meta property="og:title" content="Ghost Chat — Decentralized P2P Encrypted Messenger" />
+  <meta property="og:description" content="Zero central servers. Zero message logs. 100% peer-to-peer end-to-end encrypted private communication." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://juvianstudio.github.io/ghostchat/" />
+  
+  <!-- Premium Typography (Outfit, Plus Jakarta Sans, JetBrains Mono) & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-dark: #070614;
+      --bg-surface: #0E0C22;
+      --bg-card: rgba(18, 15, 42, 0.6);
+      --bg-card-hover: rgba(28, 23, 62, 0.75);
+      --accent-violet: #7928CA;
+      --accent-pink: #FF0080;
+      --accent-cyan: #00F0FF;
+      --accent-green: #00FF66;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(121, 40, 202, 0.4);
+      --text-primary: #F8FAFC;
+      --text-muted: #94A3B8;
+      --discord-color: #5865F2;
+      --radius-pill: 100px;
+      --radius-card: 24px;
+      --radius-sm: 10px;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--bg-dark);
+      background-image: 
+        radial-gradient(ellipse at 15% 15%, rgba(121, 40, 202, 0.22) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 35%, rgba(0, 240, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(255, 0, 128, 0.12) 0%, transparent 50%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* FLOATING PILL NAVBAR */
+    header {
+      position: sticky;
+      top: 1.25rem;
+      z-index: 100;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      background: rgba(14, 12, 34, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-pill);
+      padding: 0 1.5rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(121, 40, 202, 0.15);
+      transition: border-color 0.3s;
+    }
+
+    nav:hover {
+      border-color: rgba(121, 40, 202, 0.4);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo-img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(121, 40, 202, 0.6));
+      transition: transform 0.3s ease;
+    }
+
+    .nav-brand:hover .nav-logo-img {
+      transform: scale(1.1) rotate(-6deg);
+    }
+
+    .nav-brand-text {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #FFF 0%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover {
+      color: #FFF;
+    }
+
+    /* DROPDOWN MENU STYLING */
+    .nav-dropdown-wrapper {
+      position: relative;
+    }
+
+    .nav-dropdown-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+
+    .nav-chevron {
+      font-size: 0.7rem;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-dropdown-wrapper:hover .nav-chevron {
+      transform: rotate(180deg);
+      color: var(--accent-cyan);
+    }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      width: 250px;
+      background: rgba(14, 12, 34, 0.95);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(121, 40, 202, 0.35);
+      border-radius: 18px;
+      padding: 0.5rem 0;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(121, 40, 202, 0.25);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 300;
+    }
+
+    .nav-dropdown-wrapper:hover .nav-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .download-dropdown-menu {
+      width: 210px;
+      right: 0;
+      left: auto;
+      transform: translateY(8px);
+    }
+
+    .nav-dropdown-wrapper:hover .download-dropdown-menu {
+      transform: translateY(0);
+    }
+
+    .nav-dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.85rem !important;
+      color: var(--text-muted) !important;
+      transition: background 0.2s, color 0.2s, padding-left 0.2s !important;
+    }
+
+    .nav-dropdown-menu a i {
+      color: var(--accent-cyan);
+      font-size: 0.95rem;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-dropdown-menu a:hover {
+      background: rgba(121, 40, 202, 0.15);
+      color: #FFF !important;
+      padding-left: 1.5rem !important;
+    }
+
+    /* NAV BUTTONS */
+    .btn-discord-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(88, 101, 242, 0.15);
+      border: 1px solid rgba(88, 101, 242, 0.4);
+      color: #FFF !important;
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      transition: all 0.25s ease !important;
+    }
+
+    .btn-discord-nav:hover {
+      background: var(--discord-color);
+      box-shadow: 0 0 20px rgba(88, 101, 242, 0.6);
+    }
+
+    .btn-download-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-pink) 100%);
+      color: #FFF !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-display);
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      box-shadow: 0 0 20px rgba(121, 40, 202, 0.4);
+      transition: all 0.25s ease !important;
+    }
+
+    .btn-download-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(255, 0, 128, 0.6);
+    }
+
+    @media (max-width: 860px) {
+      .nav-links a:not(.btn-discord-nav):not(.btn-download-nav) { display: none; }
+    }
+
+    /* LAYOUT CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO SPLIT STUDIO SECTION */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: center;
+      padding: 4rem 0 5rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero-split {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+    }
+
+    .hero-content-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 960px) {
+      .hero-content-left {
+        align-items: center;
+      }
+    }
+
+    .pill-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: var(--radius-pill);
+      padding: 0.4rem 1.1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-cyan);
+      animation: pulseGlow 1.8s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+
+    .hero-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: #FFF;
+    }
+
+    .hero-heading span.gradient-text {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-violet) 50%, var(--accent-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtext {
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 580px;
+    }
+
+    /* HERO ACTION BUTTONS */
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+    }
+
+    @media (max-width: 960px) {
+      .cta-group {
+        align-items: center;
+      }
+    }
+
+    .cta-row-stores {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 960px) {
+      .cta-row-stores {
+        justify-content: center;
+      }
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #FFF;
+      background: linear-gradient(135deg, var(--accent-violet) 0%, #5B21B6 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.95rem 1.8rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(121, 40, 202, 0.4);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 45px rgba(121, 40, 202, 0.65);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-discord-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #FFF;
+      background: rgba(88, 101, 242, 0.2);
+      border: 1px solid rgba(88, 101, 242, 0.5);
+      padding: 0.9rem 2.2rem;
+      border-radius: 16px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-discord-hero:hover {
+      background: var(--discord-color);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(88, 101, 242, 0.5);
+    }
+
+    /* HERO STAGE PHONE DISPLAY (RIGHT COLUMN) */
+    .hero-stage-right {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone-stage-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(121, 40, 202, 0.4) 0%, rgba(0, 240, 255, 0.2) 50%, transparent 70%);
+      filter: blur(50px);
+      z-index: 0;
+    }
+
+    .phone-mockup-frame {
+      position: relative;
+      z-index: 1;
+      width: 280px;
+      height: 570px;
+      background: #000;
+      border-radius: 44px;
+      padding: 12px;
+      border: 3px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(121, 40, 202, 0.3);
+      transition: transform 0.4s ease;
+    }
+
+    .phone-mockup-frame:hover {
+      transform: translateY(-8px) rotate(-1deg);
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 18px;
+      background: #000;
+      border-radius: 10px;
+      z-index: 10;
+    }
+
+    .phone-screen-wrapper {
+      width: 100%;
+      height: 100%;
+      border-radius: 34px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-slider-track {
+      display: flex;
+      width: 200%;
+      height: 100%;
+      transform: translateX(0%);
+      transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    .phone-slider-track.no-transition {
+      transition: none !important;
+    }
+
+    .phone-slide-img {
+      width: 50%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+      cursor: zoom-in;
+    }
+
+    .floating-feature-tag {
+      position: absolute;
+      background: rgba(14, 12, 34, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      z-index: 2;
+    }
+
+    .tag-top-left {
+      top: 10%;
+      left: -20px;
+      animation: floatTag1 4s ease-in-out infinite alternate;
+    }
+
+    .tag-bottom-right {
+      bottom: 12%;
+      right: -25px;
+      animation: floatTag2 4s ease-in-out infinite alternate 1s;
+    }
+
+    @keyframes floatTag1 {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-8px); }
+    }
+
+    @keyframes floatTag2 {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(8px); }
+    }
+
+    /* DEEP LINK INVITE CARD */
+    .invite-card {
+      display: none;
+      width: 100%;
+      max-width: 580px;
+      background: rgba(0, 240, 255, 0.05);
+      border: 1px solid var(--accent-cyan);
+      border-radius: var(--radius-card);
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.25);
+      margin-bottom: 2rem;
+    }
+
+    .invite-card h3 {
+      font-family: var(--font-display);
+      color: var(--accent-cyan);
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .invite-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .invite-id-code {
+      font-family: var(--font-mono);
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px dashed var(--accent-cyan);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      color: #FFF;
+      font-size: 0.85rem;
+      word-break: break-all;
+      margin-bottom: 1rem;
+    }
+
+    /* INTERACTIVE SCREENSHOT GALLERY STAGE */
+    .gallery-stage-section {
+      padding: 5rem 0;
+      background: rgba(14, 12, 34, 0.3);
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-cyan);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: #FFF;
+    }
+
+    /* CAROUSEL THUMBNAIL SELECTOR */
+    .carousel-thumb-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      overflow-x: auto;
+      padding: 1rem 0.5rem 2rem;
+      scroll-snap-type: x mandatory;
+    }
+
+    .thumb-pill {
+      flex-shrink: 0;
+      width: 140px;
+      height: 250px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--border-light);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0.65;
+    }
+
+    .thumb-pill:hover, .thumb-pill.active {
+      opacity: 1;
+      transform: translateY(-8px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 12px 35px rgba(0, 240, 255, 0.3);
+    }
+
+    .thumb-pill img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ASYMMETRIC BENTO FEATURES */
+    .features-section {
+      padding: 6rem 0;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .bento-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 2.2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .bento-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-glow);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(121, 40, 202, 0.2);
+    }
+
+    .bento-span-2 {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 900px) {
+      .bento-span-2 {
+        grid-column: span 1;
+      }
+    }
+
+    .bento-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: rgba(121, 40, 202, 0.15);
+      border: 1px solid rgba(121, 40, 202, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--accent-cyan);
+      margin-bottom: 1.5rem;
+    }
+
+    .bento-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 0.75rem;
+    }
+
+    .bento-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* COMPLIANCE & LEGAL SECTION PORTAL */
+    .docs-section {
+      padding: 5rem 0 7rem;
+    }
+
+    .docs-portal-container {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 2rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    @media (max-width: 860px) {
+      .docs-portal-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sidebar-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .side-tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 1rem 1.25rem;
+      border-radius: 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.25s ease;
+    }
+
+    .side-tab-btn i {
+      font-size: 1rem;
+      color: var(--accent-cyan);
+    }
+
+    .side-tab-btn:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .side-tab-btn.active {
+      background: rgba(121, 40, 202, 0.25);
+      border-color: rgba(121, 40, 202, 0.6);
+      color: #FFF;
+      box-shadow: 0 8px 25px rgba(121, 40, 202, 0.3);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tab-content h2 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: #FFF;
+      margin-bottom: 0.4rem;
+    }
+
+    .effective-date {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      margin-bottom: 1.75rem;
+    }
+
+    .tab-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--accent-cyan);
+      margin: 1.75rem 0 0.75rem;
+    }
+
+    .tab-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .tab-content ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    .tab-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* MODAL POPUPS */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(4, 7, 18, 0.94);
+      backdrop-filter: blur(16px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.active {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .lightbox-content-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1002;
+    }
+
+    #lightbox img {
+      max-width: 85vw;
+      max-height: 82vh;
+      border-radius: 20px;
+      border: 1px solid var(--accent-cyan);
+      box-shadow: 0 0 60px rgba(0, 240, 255, 0.4);
+      transition: opacity 0.2s ease;
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(14, 12, 34, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-glow);
+      color: #FFF;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      z-index: 1005;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .lightbox-nav-btn:hover {
+      background: var(--accent-violet);
+      color: #FFF;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+      transform: translateY(-50%) scale(1.12);
+    }
+
+    .prev-btn { left: 2.5rem; }
+    .next-btn { right: 2.5rem; }
+
+    @media (max-width: 640px) {
+      .prev-btn { left: 0.6rem; width: 44px; height: 44px; font-size: 1.1rem; }
+      .next-btn { right: 0.6rem; width: 44px; height: 44px; font-size: 1.1rem; }
+    }
+
+    .lightbox-counter-badge {
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      background: rgba(14, 12, 34, 0.85);
+      border: 1px solid var(--border-light);
+      padding: 0.4rem 1.1rem;
+      border-radius: var(--radius-pill);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      color: #FFF;
+      font-size: 2.5rem;
+      cursor: pointer;
+      z-index: 1006;
+      transition: color 0.2s;
+    }
+
+    #lightbox-close:hover {
+      color: var(--accent-cyan);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 6, 20, 0.88);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-card {
+      background: #0E0C22;
+      border: 1px solid var(--border-glow);
+      border-radius: 28px;
+      padding: 2.75rem 2.2rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 50px rgba(121, 40, 202, 0.3);
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.8rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: var(--accent-cyan);
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      color: var(--accent-cyan);
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      color: #FFF;
+    }
+
+    .modal-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border-light);
+      background: rgba(7, 6, 20, 0.95);
+      padding: 3.5rem 0;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    footer p {
+      font-size: 0.82rem;
+      color: #64748B;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FLOATING PILL HEADER -->
+  <header>
+    <nav>
+      <a href="#" class="nav-brand">
+        <img src="assets/logo1.png" alt="Ghost Chat Logo" class="nav-logo-img" />
+        <span class="nav-brand-text">GHOST CHAT</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li class="nav-dropdown-wrapper">
+          <a href="#compliance" class="nav-dropdown-trigger" onclick="switchTab(event, 'privacy')">
+            Privacy &amp; Terms <i class="fa-solid fa-chevron-down nav-chevron"></i>
+          </a>
+          <div class="nav-dropdown-menu">
+            <a href="#privacy" onclick="switchTab(event, 'privacy')"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+            <a href="#terms" onclick="switchTab(event, 'terms')"><i class="fa-solid fa-file-contract"></i> Terms of Service</a>
+            <a href="#delete-data" onclick="switchTab(event, 'delete-data')"><i class="fa-solid fa-trash-can"></i> Data Deletion Policy</a>
+            <a href="#support" onclick="switchTab(event, 'support')"><i class="fa-solid fa-circle-question"></i> Support &amp; Reviewer FAQ</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://discord.gg/sCf68qus9z" target="_blank" class="btn-discord-nav">
+            <i class="fa-brands fa-discord"></i> Discord Support
+          </a>
+        </li>
+        <li class="nav-dropdown-wrapper">
+          <a href="#download" class="btn-download-nav">
+            <i class="fa-solid fa-download"></i> Download <i class="fa-solid fa-chevron-down nav-chevron" style="font-size: 0.65rem; color: #FFF;"></i>
+          </a>
+          <div class="nav-dropdown-menu download-dropdown-menu">
+            <a href="#" onclick="openComingSoon(event, 'Google Play')"><i class="fa-brands fa-google-play"></i> Google Play</a>
+            <a href="#" onclick="openComingSoon(event, 'App Store')"><i class="fa-brands fa-apple"></i> App Store</a>
+            <a href="#" onclick="openComingSoon(event, 'Microsoft Store')"><i class="fa-brands fa-windows"></i> Microsoft Store</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SPLIT STUDIO SECTION -->
+  <section class="hero-split container">
+    <div class="hero-content-left">
+      <div class="pill-status-badge">
+        <span class="live-dot"></span> WAKU P2P MESH: ONLINE • ZERO SERVERS
+      </div>
+
+      <h1 class="hero-heading">
+        Decentralized.<br>
+        <span class="gradient-text">Private.</span><br>
+        Yours.
+      </h1>
+
+      <p class="hero-subtitle">
+        Ghost Chat is a peer-to-peer messaging network. Your messages travel directly across decentralized node relays without touching central cloud servers or databases.
+      </p>
+
+      <!-- Deep Link Invite Card (Dynamically displayed when ?id= parameter is in URL) -->
+      <div id="inviteCard" class="invite-card">
+        <h3><i class="fa-solid fa-user-plus"></i> Contact Invite Detected</h3>
+        <p>Someone invited you to connect on Ghost Chat!</p>
+        <div id="inviteIdDisplay" class="invite-id-code">ID: Loading...</div>
+        <div>
+          <a id="openAppBtn" href="#" class="btn-primary" style="display:inline-flex;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Add Contact in Ghost Chat
+          </a>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div id="download" class="cta-group">
+        <div class="cta-row-stores">
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Google Play')">
+            <i class="fa-brands fa-google-play"></i> Google Play
+          </a>
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'App Store')">
+            <i class="fa-brands fa-apple"></i> App Store
+          </a>
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Microsoft Store')">
+            <i class="fa-brands fa-windows"></i> Microsoft Store
+          </a>
+        </div>
+        <div class="cta-row-discord">
+          <a href="https://discord.gg/sCf68qus9z" target="_blank" class="btn-discord-hero">
+            <i class="fa-brands fa-discord"></i> Join Discord Community
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO STAGE PHONE DISPLAY (RIGHT COLUMN) -->
+    <div class="hero-stage-right">
+      <div class="phone-stage-glow"></div>
+      
+      <div class="floating-feature-tag tag-top-left">
+        <i class="fa-solid fa-shield-halved" style="color:var(--accent-cyan);"></i> Double Ratchet E2EE
+      </div>
+
+      <div class="floating-feature-tag tag-bottom-right">
+        <i class="fa-solid fa-ghost" style="color:var(--accent-pink);"></i> View-Once Ghost Media
+      </div>
+
+      <div class="phone-mockup-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen-wrapper">
+          <div id="phoneSliderTrack" class="phone-slider-track">
+            <img id="phoneSlideCurrent" src="https://i.imgur.com/HjZAvAd.jpeg" alt="Ghost Chat Display Current" class="phone-slide-img" onclick="openHeroPhoneLightbox(currentHeroIndex)" />
+            <img id="phoneSlideNext" src="https://i.imgur.com/uvHSZOy.png" alt="Ghost Chat Display Next" class="phone-slide-img" onclick="openHeroPhoneLightbox((currentHeroIndex + 1) % heroPhoneImages.length)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE SCREENSHOT GALLERY STAGE -->
+  <section id="screenshots" class="gallery-stage-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">// INTERFACE SHOWCASE</div>
+        <h2 class="section-title">Designed for Pure Speed &amp; Security</h2>
+      </div>
+
+      <!-- CAROUSEL THUMBNAIL SELECTOR (SHOWCASE GALLERY) -->
+      <div class="carousel-thumb-bar">
+        <div class="thumb-pill" onclick="openLightboxIndex(0)">
+          <img src="https://i.imgur.com/ZaDrex0.png" alt="QR Contact Invite" />
+        </div>
+        <div class="thumb-pill" onclick="openLightboxIndex(1)">
+          <img src="https://i.imgur.com/EicjuHa.png" alt="Encrypted Messaging" />
+        </div>
+        <div class="thumb-pill" onclick="openLightboxIndex(2)">
+          <img src="https://i.imgur.com/8y7q3Fs.png" alt="Self Destruct Timers" />
+        </div>
+        <div class="thumb-pill" onclick="openLightboxIndex(3)">
+          <img src="https://i.imgur.com/aiCrUFI.png" alt="P2P Voice & Video Calls" />
+        </div>
+        <div class="thumb-pill" onclick="openLightboxIndex(4)">
+          <img src="https://i.imgur.com/9Dd1iAd.png" alt="Encrypted Media Attachments" />
+        </div>
+        <div class="thumb-pill" onclick="openLightboxIndex(5)">
+          <img src="https://i.imgur.com/BeJp54F.png" alt="Cryptographic Keys" />
+        </div>
+        <div class="thumb-pill" onclick="openLightboxIndex(6)">
+          <img src="https://i.imgur.com/1kXoJMi.png" alt="Cyber Dark Theme" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASYMMETRIC BENTO FEATURES SECTION -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">// ARCHITECTURE OVERVIEW</div>
+        <h2 class="section-title">Why Ghost Chat Stands Alone</h2>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-card bento-span-2">
+          <div class="bento-icon"><i class="fa-solid fa-network-wired"></i></div>
+          <h3>Serverless Peer-to-Peer Mesh Network</h3>
+          <p>Messages travel directly across decentralized peer-to-peer relay nodes (Waku protocol). No central cloud servers, no intermediate databases, and no single point of failure ever touches your data.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-key"></i></div>
+          <h3>Double Ratchet Signal E2EE</h3>
+          <p>Every chat session, image, voice note, and P2P call is cryptographically sealed using Signal Double Ratchet protocol end-to-end encryption.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-user-shield"></i></div>
+          <h3>Zero Metadata &amp; No Phone Numbers</h3>
+          <p>No phone numbers, emails, or accounts required. Your identity is represented strictly by your local public key string.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+          <h3>Automated Self-Destruct Timers</h3>
+          <p>Configure automatic ephemeral timers to shred local message databases permanently from both devices once read.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-trash-arrow-up"></i></div>
+          <h3>1-Tap Complete Local Device Purge</h3>
+          <p>Purge all local SQLite chat databases, keypairs, contacts, and media files instantly with a single tap in app settings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLIANCE & LEGAL PORTAL -->
+  <section id="compliance" class="docs-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">// COMPLIANCE &amp; LEGAL PORTAL</div>
+        <h2 class="section-title">Store &amp; Privacy Compliance</h2>
+      </div>
+
+      <div class="docs-portal-container">
+        <!-- Sidebar Navigation Tabs -->
+        <div class="sidebar-tabs">
+          <button class="side-tab-btn active" onclick="switchTab(event, 'privacy')">
+            <i class="fa-solid fa-shield-halved"></i> Privacy Policy
+          </button>
+          <button class="side-tab-btn" onclick="switchTab(event, 'terms')">
+            <i class="fa-solid fa-file-contract"></i> Terms of Service
+          </button>
+          <button class="side-tab-btn" onclick="switchTab(event, 'delete-data')">
+            <i class="fa-solid fa-trash-can"></i> Data Deletion
+          </button>
+          <button class="side-tab-btn" onclick="switchTab(event, 'support')">
+            <i class="fa-solid fa-circle-question"></i> Reviewer FAQ
+          </button>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="docs-content-wrapper">
+          <!-- 1. PRIVACY POLICY -->
+          <div id="privacy-tab" class="tab-content active">
+            <div id="privacy"></div>
+            <h2>Privacy Policy</h2>
+            <div class="effective-date">Effective Date: August 8, 2026 | Published by Juvian Studio</div>
+
+            <p>Ghost Chat ("we", "our", or "us") is committed to total user privacy and security. This Privacy Policy details our serverless architecture and strict zero-data collection practices in compliance with Google Play Store, Apple App Store, and Microsoft Store guidelines.</p>
+
+            <h3>1. Zero Central Data Collection</h3>
+            <p>Ghost Chat operates entirely as a serverless peer-to-peer (P2P) client. We <strong>do not collect, store, track, transmit, or monetize any personal data</strong>, IP addresses, contact lists, phone numbers, location data, or analytical telemetry.</p>
+
+            <h3>2. On-Device Local Encrypted Storage</h3>
+            <p>All message histories, contact lists, cryptographic keypairs, and application preferences are stored strictly on your local device's isolated storage using local database encryption. Your private keys never leave your physical device.</p>
+
+            <h3>3. Device Permissions Explained</h3>
+            <ul>
+              <li><strong>Camera:</strong> Used strictly for scanning QR codes to add contacts and conducting peer-to-peer video calls.</li>
+              <li><strong>Microphone:</strong> Used strictly for voice and video calls initiated by the user.</li>
+              <li><strong>Storage / Media:</strong> Used solely to allow selecting file attachments to send over encrypted P2P connections.</li>
+              <li><strong>Notifications:</strong> Used to alert you of incoming messages or call requests.</li>
+            </ul>
+
+            <h3>4. Children's Privacy Protection</h3>
+            <p>Ghost Chat is not directed to children under the age of 13. We do not knowingly collect, request, or solicit personal data from anyone under the age of 13. Because our application is serverless and operates strictly via local on-device encryption, no personal data is stored on external servers.</p>
+
+            <h3>5. Account &amp; Complete Data Deletion</h3>
+            <p>Because Ghost Chat maintains no central user accounts or cloud databases, user data deletion is fully under your control. To delete all application data, select <strong>Settings &gt; Clear All Data</strong> in the app, or uninstall the app. This permanently purges all local keys and chat databases immediately.</p>
+
+            <h3>6. Contact &amp; Developer Information</h3>
+            <p>
+              Publisher: <strong>Juvian Studio</strong><br>
+              Official Support: <a href="https://discord.gg/sCf68qus9z" target="_blank" style="color:var(--accent-cyan);">Join Discord Support Community</a><br>
+              Email Contact: <a href="mailto:juvianstudio@gmail.com" style="color:var(--accent-cyan);">juvianstudio@gmail.com</a>
+            </p>
+          </div>
+
+          <!-- 2. TERMS OF SERVICE -->
+          <div id="terms-tab" class="tab-content">
+            <div id="terms"></div>
+            <h2>Terms of Service</h2>
+            <div class="effective-date">Effective Date: August 8, 2026 | Published by Juvian Studio</div>
+
+            <p>By installing or using Ghost Chat, you agree to these Terms of Service.</p>
+
+            <h3>1. Peer-to-Peer Protocol</h3>
+            <p>Ghost Chat functions as a decentralized peer-to-peer client utilizing open Waku relay protocols. Messages are routed directly between network peers without centralized intermediary servers.</p>
+
+            <h3>2. User Safety &amp; Objectionable Content Policy</h3>
+            <p>In accordance with Apple App Store Guideline 1.2 and Google Play Store User Generated Content policies, Ghost Chat enforces a strict zero-tolerance policy for illegal content, harassment, hate speech, or abuse. Ghost Chat provides in-app contact blocking features allowing users to instantly block and remove any abusive contacts from their device.</p>
+
+            <h3>3. Disclaimer of Warranties</h3>
+            <p>Ghost Chat is provided "AS IS" without warranties of any kind. Juvian Studio is not liable for data loss due to device damage or user clearing of local keystores.</p>
+          </div>
+
+          <!-- 3. DATA DELETION TAB -->
+          <div id="delete-data-tab" class="tab-content">
+            <div id="delete-data"></div>
+            <h2>Data Deletion &amp; Account Purge Policy</h2>
+            <div class="effective-date">Google Play Store Data Deletion Policy Compliance</div>
+
+            <p>Google Play Store policies require developers to provide clear instructions on how users can request or execute complete deletion of their account and associated data.</p>
+
+            <h3>1. Serverless Architecture &amp; Zero Central Data</h3>
+            <p>Ghost Chat operates entirely as a serverless peer-to-peer (P2P) application. <strong>We do not maintain user accounts, central cloud databases, email lists, or remote telemetry servers.</strong> Therefore, there is no user data stored on central servers to delete or request deletion for.</p>
+
+            <h3>2. How to Completely Purge Your Local Data</h3>
+            <p>Because all message histories, cryptographic keypairs, contacts, and media files reside strictly on your personal device's local encrypted storage, you have full authority over your data:</p>
+
+            <ul>
+              <li><strong>Option A: In-App 1-Tap Data Purge</strong><br>
+              Open Ghost Chat &gt; Go to <strong>Settings</strong> &gt; Tap <strong>Clear All Data</strong>. This instantly wipes all local SQLite chat databases, media, and cryptographic keypairs from your device.</li>
+              <li><strong>Option B: Device App Uninstall</strong><br>
+              Uninstalling Ghost Chat from your mobile device permanently purges all local app data and sandboxed database files.</li>
+            </ul>
+
+            <h3>3. Support Contact</h3>
+            <p>If you have any questions regarding data management or store compliance, you can contact us at:</p>
+            <p>
+              <strong>Email:</strong> <a href="mailto:juvianstudio@gmail.com" style="color:var(--accent-cyan);">juvianstudio@gmail.com</a><br>
+              <strong>Community Support:</strong> <a href="https://discord.gg/sCf68qus9z" target="_blank" style="color:var(--accent-cyan);">Join Ghost Chat Discord</a>
+            </p>
+          </div>
+
+          <!-- 4. REVIEWER FAQ TAB -->
+          <div id="support-tab" class="tab-content">
+            <div id="support"></div>
+            <h2>Store Support &amp; Reviewer FAQ</h2>
+            <div class="effective-date">Information for Users &amp; Google Play Store Review Teams</div>
+
+            <h3>Q: How do store reviewers test contact addition?</h3>
+            <p>Reviewers can open the app and tap <strong>"Add Contact"</strong> to either scan a QR code or paste a public key hex string to establish a P2P messaging session.</p>
+
+            <h3>Q: How does user blocking work in Ghost Chat?</h3>
+            <p>Users can tap on any contact profile or chat setting to block and delete a contact. Blocked contacts can no longer send messages or call requests.</p>
+
+            <h3>Q: Where are messages stored?</h3>
+            <p>All database records are stored strictly in local encrypted SQLite files on the user's phone. No central servers or cloud backups are used.</p>
+
+            <h3>Q: Are there any in-app purchases or subscriptions?</h3>
+            <p>No. Ghost Chat is 100% free with no in-app purchases, zero ads, and zero monetization trackers.</p>
+
+            <h3>Q: How do I get support or report an issue?</h3>
+            <p>Join our active community on Discord or reach out directly to Juvian Studio support:</p>
+            <p style="margin-top: 1rem;">
+              <a href="https://discord.gg/sCf68qus9z" target="_blank" class="btn-discord-hero" style="display:inline-flex;">
+                <i class="fa-brands fa-discord"></i> Join Discord Support Server
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#privacy" onclick="switchTab(event, 'privacy')">Privacy Policy</a>
+        <a href="#terms" onclick="switchTab(event, 'terms')">Terms of Service</a>
+        <a href="#delete-data" onclick="switchTab(event, 'delete-data')">Data Deletion</a>
+        <a href="#support" onclick="switchTab(event, 'support')">Store Support &amp; FAQ</a>
+        <a href="https://discord.gg/sCf68qus9z" target="_blank">Discord Community</a>
+      </div>
+      <p>&copy; 2026 Ghost Chat. Published by Juvian Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX MODAL WITH PREV / NEXT NAV -->
+  <div id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-nav-btn prev-btn" onclick="prevLightboxImage(event)" title="Previous Image">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    
+    <div class="lightbox-content-wrapper" onclick="event.stopPropagation()">
+      <img id="lightbox-img" src="" alt="Enlarged Screenshot" />
+      <div id="lightbox-counter" class="lightbox-counter-badge">1 / 7</div>
+    </div>
+    
+    <button class="lightbox-nav-btn next-btn" onclick="nextLightboxImage(event)" title="Next Image">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    
+    <span id="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+  </div>
+
+  <!-- COMING SOON MODAL POPUP -->
+  <div id="comingSoonModal" class="modal-overlay" onclick="closeComingSoon(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeComingSoon()">&times;</button>
+      <div class="modal-icon"><i class="fa-solid fa-rocket"></i></div>
+      <h3 id="modalStoreTitle" class="modal-title">Launching Soon!</h3>
+      <p class="modal-desc">
+        Ghost Chat is preparing for official public launch. Join our Discord Community to get early access builds, test flight invites, and instant release notifications!
+      </p>
+      <div>
+        <a href="https://discord.gg/sCf68qus9z" target="_blank" class="btn-discord-hero" style="width:100%; justify-content:center;">
+          <i class="fa-brands fa-discord"></i> Join Discord Community
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT HANDLERS -->
+  <script>
+    // Hero Phone Display Images Array (Dedicated)
+    const heroPhoneImages = [
+      'https://i.imgur.com/HjZAvAd.jpeg',
+      'https://i.imgur.com/uvHSZOy.png',
+      'https://i.imgur.com/qer0DCY.jpeg',
+      'https://i.imgur.com/xlW3GT3.jpeg',
+      'https://i.imgur.com/jmxXlQJ.jpeg',
+      'https://i.imgur.com/1hwlF3R.jpeg',
+      'https://i.imgur.com/qfbGrXZ.png'
+    ];
+
+    // Showcase Gallery Screenshots Master Array (Dedicated)
+    const screenshotsList = [
+      'https://i.imgur.com/ZaDrex0.png',
+      'https://i.imgur.com/EicjuHa.png',
+      'https://i.imgur.com/8y7q3Fs.png',
+      'https://i.imgur.com/aiCrUFI.png',
+      'https://i.imgur.com/9Dd1iAd.png',
+      'https://i.imgur.com/BeJp54F.png',
+      'https://i.imgur.com/1kXoJMi.png'
+    ];
+
+    let currentHeroIndex = 0;
+    let autoSwipeInterval = null;
+    let currentLightboxIndex = 0;
+    let currentActiveGallery = screenshotsList;
+
+    // Continuous Right-to-Left Physical Smartphone Track Swipe
+    function heroAutoSwipeNext() {
+      const track = document.getElementById('phoneSliderTrack');
+      const currImg = document.getElementById('phoneSlideCurrent');
+      const nextImg = document.getElementById('phoneSlideNext');
+      if (!track || !currImg || !nextImg) return;
+
+      const nextIndex = (currentHeroIndex + 1) % heroPhoneImages.length;
+
+      // Set next image source on right slide
+      nextImg.src = heroPhoneImages[nextIndex];
+
+      // Smooth 60fps translate left
+      track.classList.remove('no-transition');
+      track.style.transform = 'translateX(-50%)';
+
+      // Instant reset after transition completes
+      setTimeout(() => {
+        currentHeroIndex = nextIndex;
+        currImg.src = heroPhoneImages[currentHeroIndex];
+
+        track.classList.add('no-transition');
+        track.style.transform = 'translateX(0%)';
+      }, 660);
+    }
+
+    function startHeroAutoSwipe() {
+      if (autoSwipeInterval) clearInterval(autoSwipeInterval);
+      autoSwipeInterval = setInterval(heroAutoSwipeNext, 3500);
+    }
+
+    // Hero Phone Lightbox Trigger
+    function openHeroPhoneLightbox(index) {
+      currentActiveGallery = heroPhoneImages;
+      openLightboxIndex(index);
+    }
+
+    // Lightbox Modal Handler with Indexing and Prev/Next Navigation
+    function openLightboxIndex(index) {
+      if (!currentActiveGallery) currentActiveGallery = screenshotsList;
+      if (index < 0) index = currentActiveGallery.length - 1;
+      if (index >= currentActiveGallery.length) index = 0;
+
+      currentLightboxIndex = index;
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const counter = document.getElementById('lightbox-counter');
+
+      if (img && lightbox) {
+        img.src = currentActiveGallery[currentLightboxIndex];
+        if (counter) counter.textContent = (currentLightboxIndex + 1) + ' / ' + currentActiveGallery.length;
+        lightbox.classList.add('active');
+      }
+    }
+
+    function openLightbox(imageSrc) {
+      currentActiveGallery = screenshotsList;
+      let idx = screenshotsList.indexOf(imageSrc);
+      if (idx === -1) idx = 0;
+      openLightboxIndex(idx);
+    }
+
+    function prevLightboxImage(evt) {
+      if (evt && evt.stopPropagation) evt.stopPropagation();
+      openLightboxIndex(currentLightboxIndex - 1);
+    }
+
+    function nextLightboxImage(evt) {
+      if (evt && evt.stopPropagation) evt.stopPropagation();
+      openLightboxIndex(currentLightboxIndex + 1);
+    }
+
+    function closeLightbox(evt) {
+      if (evt && evt.target && evt.target.classList.contains('lightbox-nav-btn')) return;
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    // Keyboard Navigation for Lightbox (Left / Right Arrows & Esc)
+    window.addEventListener('keydown', (e) => {
+      const lightbox = document.getElementById('lightbox');
+      if (lightbox && lightbox.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') {
+          prevLightboxImage(e);
+        } else if (e.key === 'ArrowRight') {
+          nextLightboxImage(e);
+        } else if (e.key === 'Escape') {
+          document.getElementById('lightbox').classList.remove('active');
+        }
+      }
+    });
+
+    // Sidebar Legal Tab Switcher
+    function switchTab(evt, tabName) {
+      if (evt && evt.preventDefault) evt.preventDefault();
+      if (typeof evt === 'string') tabName = evt;
+
+      document.querySelectorAll('.side-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+      if (tabName === 'privacy') {
+        document.querySelectorAll('.side-tab-btn')[0].classList.add('active');
+        document.getElementById('privacy-tab').classList.add('active');
+      } else if (tabName === 'terms') {
+        document.querySelectorAll('.side-tab-btn')[1].classList.add('active');
+        document.getElementById('terms-tab').classList.add('active');
+      } else if (tabName === 'delete-data') {
+        document.querySelectorAll('.side-tab-btn')[2].classList.add('active');
+        document.getElementById('delete-data-tab').classList.add('active');
+      } else if (tabName === 'support') {
+        document.querySelectorAll('.side-tab-btn')[3].classList.add('active');
+        document.getElementById('support-tab').classList.add('active');
+      }
+
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, null, '#' + tabName);
+      }
+
+      const activeContent = document.getElementById(tabName + '-tab');
+      if (activeContent) {
+        setTimeout(() => {
+          const navOffset = 90;
+          const elementPosition = activeContent.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - navOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 30);
+      }
+    }
+
+    // Lightbox image preview handler
+    function openLightbox(imageSrc) {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = imageSrc;
+      lightbox.classList.add('active');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    // Coming Soon Modal Popup Handler
+    function openComingSoon(evt, storeName) {
+      if (evt && evt.preventDefault) evt.preventDefault();
+      const modal = document.getElementById('comingSoonModal');
+      const title = document.getElementById('modalStoreTitle');
+      if (storeName) {
+        title.textContent = storeName + ' Launching Soon!';
+      } else {
+        title.textContent = 'Launching Soon!';
+      }
+      modal.classList.add('active');
+    }
+    function closeComingSoon(evt) {
+      if (evt && evt.target !== evt.currentTarget && evt.type === 'click') return;
+      document.getElementById('comingSoonModal').classList.remove('active');
+    }
+
+    // Dynamic Deep Link Inviter & Hash Location Handler
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash) {
+        let tabToActivate = null;
+        if (hash.includes('privacy')) tabToActivate = 'privacy';
+        else if (hash.includes('terms')) tabToActivate = 'terms';
+        else if (hash.includes('delete')) tabToActivate = 'delete-data';
+        else if (hash.includes('support') || hash.includes('faq')) tabToActivate = 'support';
+
+        if (tabToActivate) {
+          switchTab(null, tabToActivate);
+        }
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const inviteId = urlParams.get('id');
+
+      if (inviteId) {
+        const card = document.getElementById('inviteCard');
+        const display = document.getElementById('inviteIdDisplay');
+        const openBtn = document.getElementById('openAppBtn');
+
+        if (card && display && openBtn) {
+          display.textContent = 'ID: ' + inviteId;
+          openBtn.href = 'ghostchat://add?id=' + encodeURIComponent(inviteId);
+          card.style.display = 'block';
+        }
+      }
+
+      // Start independent hero phone auto-swipe loop
+      startHeroAutoSwipe();
+    });
+  </script>
+</body>
+</html>
