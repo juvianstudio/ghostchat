@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#070614" />
+  <meta name="color-scheme" content="dark" />
   
   <title>Ghost Chat — Serverless P2P Encrypted Messenger</title>
   <meta name="description" content="Ghost Chat is a serverless peer-to-peer encrypted messaging client. Zero central servers, zero cloud databases, zero metadata collection. Powered by Waku P2P & Signal Double Ratchet protocol." />
@@ -11,6 +13,10 @@
   <meta property="og:description" content="Zero central servers. Zero message logs. 100% peer-to-peer end-to-end encrypted private communication." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://juvianstudio.github.io/ghostchat/" />
+
+  <!-- Favicon & Mobile Touch Icons -->
+  <link rel="icon" href="https://i.imgur.com/Fom6god.png" type="image/png" />
+  <link rel="apple-touch-icon" href="https://i.imgur.com/Fom6god.png" />
   
   <!-- Premium Typography (Outfit, Plus Jakarta Sans, JetBrains Mono) & FontAwesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1036,6 +1042,238 @@
       font-size: 0.82rem;
       color: #64748B;
     }
+
+    /* DESKTOP BROWSER SCROLLBAR STYLING */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(121, 40, 202, 0.4);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-cyan);
+    }
+
+    /* MOBILE NAVIGATION HAMBURGER & DRAWER STYLING */
+    .mobile-hamburger-btn {
+      display: none;
+      background: rgba(121, 40, 202, 0.15);
+      border: 1px solid rgba(121, 40, 202, 0.4);
+      color: #FFF;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      font-size: 1.15rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .mobile-hamburger-btn:active {
+      transform: scale(0.92);
+      background: var(--accent-violet);
+    }
+
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: rgba(7, 6, 20, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-nav-overlay.active {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav-content {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 85%;
+      max-width: 340px;
+      height: 100%;
+      background: #0E0C22;
+      border-left: 1px solid var(--border-glow);
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      box-shadow: -15px 0 40px rgba(0, 0, 0, 0.8);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-nav-overlay.active .mobile-nav-content {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .mobile-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .mobile-close-btn:hover {
+      color: var(--accent-cyan);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mobile-nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.98rem;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.2s ease;
+    }
+
+    .mobile-nav-links a i {
+      color: var(--accent-cyan);
+      font-size: 1.05rem;
+      width: 22px;
+      text-align: center;
+    }
+
+    .mobile-nav-links a:active {
+      background: rgba(121, 40, 202, 0.25);
+      color: var(--accent-cyan);
+    }
+
+    .mobile-legal-group {
+      margin: 0.75rem 0;
+      padding: 0.75rem;
+      background: rgba(18, 15, 42, 0.6);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .mobile-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mobile-stores-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .mobile-stores-row .btn-primary {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 0.82rem;
+      justify-content: center;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES FOR MOBILE & TABLET */
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .mobile-hamburger-btn { display: flex; }
+      header { top: 0.75rem; padding: 0 0.85rem; }
+      nav { height: 62px; padding: 0 1.1rem; }
+      
+      /* Mobile Legal Sidebar Tabs - Horizontal Scrollable Segment Bar */
+      .sidebar-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.6rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .side-tab-btn {
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        white-space: nowrap;
+        padding: 0.7rem 1.1rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .cta-row-stores {
+        flex-direction: column;
+        width: 100%;
+      }
+      .cta-row-stores .btn-primary {
+        width: 100%;
+        justify-content: center;
+        min-height: 48px;
+      }
+      .btn-discord-hero {
+        width: 100%;
+        justify-content: center;
+        min-height: 48px;
+      }
+      .phone-mockup-frame {
+        width: 245px;
+        height: 500px;
+        padding: 8px;
+        border-radius: 36px;
+      }
+      .floating-feature-tag {
+        font-size: 0.68rem;
+        padding: 0.4rem 0.75rem;
+      }
+      .tag-top-left {
+        left: -10px;
+        top: 3%;
+      }
+      .tag-bottom-right {
+        right: -10px;
+        bottom: 3%;
+      }
+      .bento-card {
+        padding: 1.6rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1079,8 +1317,53 @@
           </div>
         </li>
       </ul>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-hamburger-btn" onclick="toggleMobileMenu()" aria-label="Open Navigation Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </nav>
   </header>
+
+  <!-- MOBILE NAVIGATION DRAWER OVERLAY -->
+  <div id="mobileNavOverlay" class="mobile-nav-overlay" onclick="closeMobileMenu(event)">
+    <div class="mobile-nav-content" onclick="event.stopPropagation()">
+      <div class="mobile-nav-header">
+        <a href="#" class="nav-brand" onclick="closeMobileMenu()">
+          <img src="https://i.imgur.com/Fom6god.png" alt="Ghost Chat Logo" class="nav-logo-img" />
+          <span class="nav-brand-text">GHOST CHAT</span>
+        </a>
+        <button class="mobile-close-btn" onclick="closeMobileMenu()">&times;</button>
+      </div>
+
+      <div class="mobile-nav-links">
+        <a href="#features" onclick="closeMobileMenu()"><i class="fa-solid fa-network-wired"></i> Architecture Features</a>
+        <a href="#screenshots" onclick="closeMobileMenu()"><i class="fa-solid fa-mobile-screen"></i> Interface Showcase</a>
+        
+        <div class="mobile-legal-group">
+          <div class="mobile-group-title"><i class="fa-solid fa-shield-halved"></i> Compliance &amp; Legal</div>
+          <a href="#privacy" onclick="switchTab(event, 'privacy'); closeMobileMenu();"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+          <a href="#terms" onclick="switchTab(event, 'terms'); closeMobileMenu();"><i class="fa-solid fa-file-contract"></i> Terms of Service</a>
+          <a href="#disclaimer" onclick="switchTab(event, 'disclaimer'); closeMobileMenu();"><i class="fa-solid fa-gavel"></i> Legal Disclaimer</a>
+          <a href="#delete-data" onclick="switchTab(event, 'delete-data'); closeMobileMenu();"><i class="fa-solid fa-trash-can"></i> Data Deletion</a>
+          <a href="#support" onclick="switchTab(event, 'support'); closeMobileMenu();"><i class="fa-solid fa-circle-question"></i> Store Support &amp; FAQ</a>
+        </div>
+
+        <a href="https://discord.gg/sCf68qus9z" target="_blank" class="btn-discord-nav" style="justify-content: center; margin-top: 0.4rem; padding: 0.75rem;">
+          <i class="fa-brands fa-discord"></i> Discord Community
+        </a>
+
+        <div class="mobile-stores-row">
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Google Play'); closeMobileMenu();">
+            <i class="fa-brands fa-google-play"></i> Android
+          </a>
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'App Store'); closeMobileMenu();">
+            <i class="fa-brands fa-apple"></i> iOS
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- HERO SPLIT STUDIO SECTION -->
   <section class="hero-split container">
@@ -1674,6 +1957,18 @@
     function closeComingSoon(evt) {
       if (evt && evt.target !== evt.currentTarget && evt.type === 'click') return;
       document.getElementById('comingSoonModal').classList.remove('active');
+    }
+
+    // Mobile Navigation Drawer Toggle Handlers
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileNavOverlay');
+      if (drawer) drawer.classList.toggle('active');
+    }
+
+    function closeMobileMenu(evt) {
+      if (evt && evt.target !== evt.currentTarget && evt.type === 'click') return;
+      const drawer = document.getElementById('mobileNavOverlay');
+      if (drawer) drawer.classList.remove('active');
     }
 
     // Dynamic Deep Link Inviter & Hash Location Handler
