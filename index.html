@@ -1058,6 +1058,7 @@
           <div class="nav-dropdown-menu">
             <a href="#privacy" onclick="switchTab(event, 'privacy')"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
             <a href="#terms" onclick="switchTab(event, 'terms')"><i class="fa-solid fa-file-contract"></i> Terms of Service</a>
+            <a href="#disclaimer" onclick="switchTab(event, 'disclaimer')"><i class="fa-solid fa-gavel"></i> Legal Disclaimer</a>
             <a href="#delete-data" onclick="switchTab(event, 'delete-data')"><i class="fa-solid fa-trash-can"></i> Data Deletion Policy</a>
             <a href="#support" onclick="switchTab(event, 'support')"><i class="fa-solid fa-circle-question"></i> Support &amp; Reviewer FAQ</a>
           </div>
@@ -1249,6 +1250,9 @@
           <button class="side-tab-btn" onclick="switchTab(event, 'terms')">
             <i class="fa-solid fa-file-contract"></i> Terms of Service
           </button>
+          <button class="side-tab-btn" onclick="switchTab(event, 'disclaimer')">
+            <i class="fa-solid fa-gavel"></i> Legal Disclaimer
+          </button>
           <button class="side-tab-btn" onclick="switchTab(event, 'delete-data')">
             <i class="fa-solid fa-trash-can"></i> Data Deletion
           </button>
@@ -1287,11 +1291,17 @@
             <h3>5. Account &amp; Complete Data Deletion</h3>
             <p>Because Ghost Chat maintains no central user accounts or cloud databases, user data deletion is fully under your control. To delete all application data, select <strong>Settings &gt; Clear All Data</strong> in the app, or uninstall the app. This permanently purges all local keys and chat databases immediately.</p>
 
-            <h3>6. Contact &amp; Developer Information</h3>
+            <h3>6. EU Privacy &amp; ePrivacy Cookie Exemption Notice</h3>
+            <p>This official website (juvianstudio.github.io/ghostchat) is a static informational website. It uses <strong>ZERO cookies, ZERO tracking pixels, ZERO web analytics, and ZERO third-party trackers</strong>. Under the EU ePrivacy Directive and GDPR guidelines, static sites with zero cookies do not require invasive cookie banners.</p>
+
+            <h3>7. US State Privacy Rights (CCPA / CPRA / Virginia CDPA)</h3>
+            <p>Under the California Consumer Privacy Act (CCPA), CPRA, and related state privacy laws, residents have the right to opt out of the sale or sharing of personal data. Ghost Chat collects, processes, sells, or shares <strong>ZERO personal information</strong>. We do not sell or monetize user data under any circumstances.</p>
+
+            <h3>8. Publisher Imprint &amp; Legal Contact (EU DSA Compliance)</h3>
             <p>
-              Publisher: <strong>Juvian Studio</strong><br>
-              Official Support: <a href="https://discord.gg/sCf68qus9z" target="_blank" style="color:var(--accent-cyan);">Join Discord Support Community</a><br>
-              Email Contact: <a href="mailto:juvianstudio@gmail.com" style="color:var(--accent-cyan);">juvianstudio@gmail.com</a>
+              App &amp; Website Publisher: <strong>Juvian Studio</strong><br>
+              Official Legal &amp; Compliance Email: <a href="mailto:juvianstudio@gmail.com" style="color:var(--accent-cyan);">juvianstudio@gmail.com</a><br>
+              Community Support &amp; Enquiries: <a href="https://discord.gg/sCf68qus9z" target="_blank" style="color:var(--accent-cyan);">Join Discord Support Server</a>
             </p>
           </div>
 
@@ -1301,7 +1311,7 @@
             <h2>Terms of Service</h2>
             <div class="effective-date">Effective Date: August 8, 2026 | Published by Juvian Studio</div>
 
-            <p>By installing or using Ghost Chat, you agree to these Terms of Service.</p>
+            <p>By installing or using Ghost Chat, you agree to these Terms of Service and our <a href="#disclaimer" onclick="switchTab(event, 'disclaimer')" style="color:var(--accent-cyan);">Legal Disclaimer &amp; Developer Liability Exemption</a>.</p>
 
             <h3>1. Peer-to-Peer Protocol</h3>
             <p>Ghost Chat functions as a decentralized peer-to-peer client utilizing open Waku relay protocols. Messages are routed directly between network peers without centralized intermediary servers.</p>
@@ -1309,8 +1319,59 @@
             <h3>2. User Safety &amp; Objectionable Content Policy</h3>
             <p>In accordance with Apple App Store Guideline 1.2 and Google Play Store User Generated Content policies, Ghost Chat enforces a strict zero-tolerance policy for illegal content, harassment, hate speech, or abuse. Ghost Chat provides in-app contact blocking features allowing users to instantly block and remove any abusive contacts from their device.</p>
 
-            <h3>3. Disclaimer of Warranties</h3>
-            <p>Ghost Chat is provided "AS IS" without warranties of any kind. Juvian Studio is not liable for data loss due to device damage or user clearing of local keystores.</p>
+            <h3>3. Disclaimer of Warranties &amp; Developer Exemption</h3>
+            <p>Ghost Chat is provided "AS IS" without warranties of any kind. The developer/publisher (Juvian Studio) holds zero liability for user actions, transmitted content, or data loss. For full details, see our <a href="#disclaimer" onclick="switchTab(event, 'disclaimer')" style="color:var(--accent-cyan);">Legal Disclaimer &amp; Liability Protection</a>.</p>
+          </div>
+
+          <!-- 3. LEGAL DISCLAIMER & LIABILITY PROTECTION -->
+          <div id="disclaimer-tab" class="tab-content">
+            <div id="disclaimer"></div>
+            <h2>Legal Disclaimer &amp; Liability Protection</h2>
+            <div class="effective-date">Developer &amp; Publisher Legal Exemption Notice | Effective August 8, 2026</div>
+
+            <div style="background: rgba(255, 0, 128, 0.08); border: 1px solid rgba(255, 0, 128, 0.3); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1.75rem;">
+              <p style="color: #FFF; font-weight: 700; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-pink);"></i> IMPORTANT NOTICE TO ALL USERS:
+              </p>
+              <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.6;">
+                Ghost Chat is a serverless, open-protocol peer-to-peer software tool provided strictly for private communication. The software creator, developer, and publisher (Juvian Studio) maintain ZERO central servers, ZERO access to user communications, and ZERO control over user actions. By installing or using this application, you agree that you are 100% solely responsible for your usage and agree to hold the creator completely harmless from any and all legal liabilities.
+              </p>
+            </div>
+
+            <h3>1. Complete Disclaimer of Responsibility for User Conduct</h3>
+            <p>Ghost Chat operates entirely as a client-side tool. The developer does not host, monitor, filter, intercept, store, or inspect any communications, messages, media files, calls, or data transmitted over the peer-to-peer network. Consequently:</p>
+            <ul>
+              <li>The developer has no technical or physical ability to censor, block, track, or review user transmissions.</li>
+              <li>The developer explicitly disclaims any and all responsibility or legal liability for any illegal, unauthorized, fraudulent, defamatory, harassing, infringive, or dangerous actions committed by any user using the application.</li>
+              <li>Users assume 100% of all legal liability, criminal liability, and risk associated with their use of the application.</li>
+            </ul>
+
+            <h3>2. Neutral Software Utility ("Envelope Analogy")</h3>
+            <p>Ghost Chat is a neutral, general-purpose software application—analogous to a physical paper envelope, a web browser, or a telephone handset. The developer provides the utility tool only and does not control how end users choose to utilize it. The inclusion of cryptography and privacy features does not imply developer endorsement or involvement in any user activity.</p>
+
+            <h3>3. Absolute "AS IS" Warranty Disclaimer</h3>
+            <p>Ghost Chat is provided on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis without warranties of any kind, whether express, implied, statutory, or otherwise. The developer explicitly disclaims all warranties, including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, security, data integrity, uptime, or error-free operation.</p>
+
+            <h3>4. Limitation of Liability &amp; Damages Waiver</h3>
+            <p>To the maximum extent permitted by applicable law, in no event shall the developer, publisher (Juvian Studio), affiliates, or contributors be liable for any direct, indirect, incidental, special, consequential, punitive, or exemplary damages whatsoever (including, without limitation, loss of profits, loss of data, hardware damage, privacy breaches resulting from compromised user devices, business interruption, or personal injury) arising out of or in connection with the use or inability to use Ghost Chat, even if advised of the possibility of such damages.</p>
+
+            <h3>5. Mandatory User Indemnification</h3>
+            <p>You agree to defend, indemnify, and hold harmless the developer, publisher (Juvian Studio), and its team from and against any claims, demands, liabilities, damages, losses, costs, or expenses (including legal fees) arising from or related to:</p>
+            <ul>
+              <li>Your violation of any applicable local, national, or international law or regulation.</li>
+              <li>Your misuse or unlawful use of Ghost Chat.</li>
+              <li>Any content or communication transmitted by you through the application.</li>
+              <li>Your violation of any third-party rights, including intellectual property or privacy rights.</li>
+            </ul>
+
+            <h3>6. Key Security &amp; Unrecoverable Data Disclaimer</h3>
+            <p>Ghost Chat utilizes client-side end-to-end encryption. Cryptographic keys and database records exist ONLY on your physical device. If you delete local app data, lose your device, or lose your cryptographic keypair, <strong>data cannot be recovered by anyone, including the developer</strong>. The developer bears no responsibility or liability for lost messages, inaccessible keys, or unrecoverable databases.</p>
+
+            <h3>7. Compliance with Local Laws &amp; Jurisdiction</h3>
+            <p>It is the sole responsibility of the user to ensure that installing and using peer-to-peer encrypted messaging software complies with all laws and regulations in their local country or legal jurisdiction.</p>
+
+            <h3>8. US Cryptography Export Compliance (EAR / EAR99)</h3>
+            <p>Ghost Chat incorporates standard open-source cryptographic algorithms (Signal Double Ratchet, Curve25519, AES-256-GCM). Under United States Export Administration Regulations (EAR), publicly available open-source encryption software distributed without commercial restriction falls under classification EAR99 / TSU (Technology and Software Unrestricted). Users downloading or deploying this software in foreign jurisdictions are responsible for complying with international import/export control laws.</p>
           </div>
 
           <!-- 3. DATA DELETION TAB -->
@@ -1379,6 +1440,7 @@
       <div class="footer-links">
         <a href="#privacy" onclick="switchTab(event, 'privacy')">Privacy Policy</a>
         <a href="#terms" onclick="switchTab(event, 'terms')">Terms of Service</a>
+        <a href="#disclaimer" onclick="switchTab(event, 'disclaimer')">Legal Disclaimer</a>
         <a href="#delete-data" onclick="switchTab(event, 'delete-data')">Data Deletion</a>
         <a href="#support" onclick="switchTab(event, 'support')">Store Support &amp; FAQ</a>
         <a href="https://discord.gg/sCf68qus9z" target="_blank">Discord Community</a>
@@ -1556,11 +1618,14 @@
       } else if (tabName === 'terms') {
         document.querySelectorAll('.side-tab-btn')[1].classList.add('active');
         document.getElementById('terms-tab').classList.add('active');
-      } else if (tabName === 'delete-data') {
+      } else if (tabName === 'disclaimer') {
         document.querySelectorAll('.side-tab-btn')[2].classList.add('active');
+        document.getElementById('disclaimer-tab').classList.add('active');
+      } else if (tabName === 'delete-data') {
+        document.querySelectorAll('.side-tab-btn')[3].classList.add('active');
         document.getElementById('delete-data-tab').classList.add('active');
       } else if (tabName === 'support') {
-        document.querySelectorAll('.side-tab-btn')[3].classList.add('active');
+        document.querySelectorAll('.side-tab-btn')[4].classList.add('active');
         document.getElementById('support-tab').classList.add('active');
       }
 
@@ -1618,6 +1683,7 @@
         let tabToActivate = null;
         if (hash.includes('privacy')) tabToActivate = 'privacy';
         else if (hash.includes('terms')) tabToActivate = 'terms';
+        else if (hash.includes('disclaimer')) tabToActivate = 'disclaimer';
         else if (hash.includes('delete')) tabToActivate = 'delete-data';
         else if (hash.includes('support') || hash.includes('faq')) tabToActivate = 'support';
 
