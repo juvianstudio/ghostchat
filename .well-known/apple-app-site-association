@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "2VH6ZC4D4W.com.juvianstudio.ghostchat",
+        "paths": [
+          "/ghostchat/add",
+          "/ghostchat/add/*"
+        ]
+      }
+    ]
+  }
+}
