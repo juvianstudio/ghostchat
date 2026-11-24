@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghost Chat — Private Invite</title>
+  <meta name="description" content="You've been invited to chat privately on Ghost Chat — 100% decentralized, end-to-end encrypted messaging & calls." />
+  <meta property="og:title" content="Ghost Chat — Private Invite" />
+  <meta property="og:description" content="Tap to connect on Ghost Chat — decentralized, end-to-end encrypted messaging & calls." />
+  <meta property="og:type" content="website" />
+  <!-- Once published on the App Store, replace YOUR_APP_STORE_ID below for Safari's native Smart App Banner -->
+  <!-- <meta name="apple-itunes-app" content="app-id=YOUR_APP_STORE_ID" /> -->
+  <style>
+    :root {
+      --bg: #0b0c12;
+      --surface: #141622;
+      --border: rgba(255, 255, 255, 0.09);
+      --primary: #8b5cf6;
+      --cyan: #22d3ee;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --danger: #f87171;
+      --success: #34d399;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: radial-gradient(circle at top, #1b1536 0%, var(--bg) 55%);
+      color: var(--text);
+    }
+    .card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px 26px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    }
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(139, 92, 246, 0.14);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      font-size: 36px;
+      overflow: hidden;
+    }
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      border-radius: 999px;
+      padding: 5px 12px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+    .id-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      color: var(--cyan);
+      word-break: break-all;
+      margin-bottom: 22px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.12s ease, opacity 0.15s ease;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      color: #fff;
+      margin-bottom: 10px;
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+    .btn-store {
+      background: rgba(34, 211, 238, 0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      margin-top: 6px;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .status {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--success);
+      min-height: 18px;
+    }
+    .error {
+      color: var(--danger);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .footer {
+      margin-top: 22px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="logo">
+      <img src="../assets/logo1.png" alt="Ghost Chat" onerror="this.remove(); this.parentElement.textContent='👻';" />
+    </div>
+    <div class="badge">DECENTRALIZED &amp; E2E ENCRYPTED</div>
+    <h1 id="headline">Join me on Ghost Chat</h1>
+    <p id="subtitle" class="subtitle">
+      No phone numbers, no accounts, and no central servers. Tap below to add this contact securely.
+    </p>
+
+    <div id="validSection" style="display: none;">
+      <div id="idBox" class="id-box"></div>
+      <a id="openAppBtn" class="btn btn-primary" href="#">Open in Ghost Chat</a>
+      <button id="copyBtn" class="btn btn-secondary" type="button">Copy Ghost ID</button>
+
+      <div class="divider">Don't have Ghost Chat yet?</div>
+      <a id="storeBtn" class="btn btn-store" href="https://juvianstudio.github.io/ghostchat/#download">
+        Download Ghost Chat
+      </a>
+      <div id="statusMsg" class="status"></div>
+    </div>
+
+    <div id="invalidSection" style="display: none;">
+      <p class="error">
+        This invite link is missing a valid 64-character Ghost ID. Ask your friend to share a fresh link from Ghost Chat.
+      </p>
+      <a class="btn btn-primary" href="https://juvianstudio.github.io/ghostchat/">Visit Ghost Chat Website</a>
+    </div>
+
+    <div class="footer">
+      <a href="https://juvianstudio.github.io/ghostchat/">juvianstudio.github.io/ghostchat</a>
+    </div>
+  </main>
+
+  <script>
+    // =========================================================================
+    // STORE LINKS — Fill these in as soon as Ghost Chat is published!
+    // Once set, friends who don't have Ghost Chat installed yet are
+    // automatically sent to the App Store (iPhone/iPad) or Google Play (Android).
+    // =========================================================================
+    const APP_STORE_URL = '';
+    const PLAY_STORE_URL = '';
+    const WEBSITE_DOWNLOAD_URL = 'https://juvianstudio.github.io/ghostchat/#download';
+
+    function detectPlatform() {
+      const ua = navigator.userAgent || '';
+      if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+        return 'ios';
+      }
+      if (/Android/i.test(ua)) {
+        return 'android';
+      }
+      return 'desktop';
+    }
+
+    function isValidGhostId(id) {
+      return typeof id === 'string' && /^[0-9a-fA-F]{64}$/.test(id.trim());
+    }
+
+    (function initInvitePage() {
+      const params = new URLSearchParams(window.location.search);
+      const rawId = (params.get('id') || '').trim().toLowerCase();
+      const rawName = (params.get('name') || '').trim().slice(0, 48);
+
+      const validSection = document.getElementById('validSection');
+      const invalidSection = document.getElementById('invalidSection');
+      const headline = document.getElementById('headline');
+      const idBox = document.getElementById('idBox');
+      const openAppBtn = document.getElementById('openAppBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const storeBtn = document.getElementById('storeBtn');
+      const statusMsg = document.getElementById('statusMsg');
+
+      if (!isValidGhostId(rawId)) {
+        invalidSection.style.display = 'block';
+        return;
+      }
+
+      if (rawName) {
+        headline.textContent = rawName + ' invited you to Ghost Chat';
+      }
+
+      const shortId = rawId.slice(0, 10) + '...' + rawId.slice(-10);
+      idBox.textContent = 'Ghost ID: ' + shortId;
+
+      let deepLink = 'ghostchat://add?id=' + encodeURIComponent(rawId);
+      if (rawName) {
+        deepLink += '&name=' + encodeURIComponent(rawName);
+      }
+      openAppBtn.href = deepLink;
+
+      const platform = detectPlatform();
+      let storeUrl = WEBSITE_DOWNLOAD_URL;
+      if (platform === 'ios' && APP_STORE_URL) {
+        storeUrl = APP_STORE_URL;
+        storeBtn.textContent = 'Download on the App Store';
+      } else if (platform === 'ios') {
+        storeBtn.textContent = 'Get Ghost Chat for iPhone';
+      } else if (platform === 'android' && PLAY_STORE_URL) {
+        storeUrl = PLAY_STORE_URL;
+        storeBtn.textContent = 'Get it on Google Play';
+      } else if (platform === 'android') {
+        storeBtn.textContent = 'Get Ghost Chat for Android';
+      } else {
+        storeBtn.textContent = 'Download Ghost Chat';
+      }
+      storeBtn.href = storeUrl;
+
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(rawId);
+          statusMsg.textContent = 'Ghost ID copied! Paste it in Ghost Chat → Add Contact.';
+        } catch (_) {
+          statusMsg.textContent = rawId;
+        }
+      });
+
+      validSection.style.display = 'block';
+
+      // On mobile, try launching Ghost Chat immediately. If the app isn't installed
+      // and a live store URL is configured, redirect to App Store / Google Play.
+      if (platform === 'ios' || platform === 'android') {
+        let pageHidden = false;
+        const onVisibility = () => {
+          if (document.hidden) pageHidden = true;
+        };
+        document.addEventListener('visibilitychange', onVisibility);
+        window.addEventListener('pagehide', () => { pageHidden = true; });
+
+        window.location.href = deepLink;
+
+        const autoStoreUrl = platform === 'ios' ? APP_STORE_URL : PLAY_STORE_URL;
+        if (autoStoreUrl) {
+          setTimeout(() => {
+            document.removeEventListener('visibilitychange', onVisibility);
+            if (!pageHidden) {
+              window.location.href = autoStoreUrl;
+            }
+          }, 1400);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

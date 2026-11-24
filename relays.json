@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "publicKey": "ce30d3e1f0eb67c85643bbce9fff85c183052885950a65a60df608e2b2a94e16",
+  "payloadJson": "{\"mqttRelays\":[{\"url\":\"wss://broker.hivemq.com/mqtt\",\"port\":8884},{\"url\":\"wss://test.mosquitto.org\",\"port\":8081},{\"url\":\"wss://broker.emqx.io/mqtt\",\"port\":8084}],\"turnApiUrl\":\"https://ghostchat-relay-gate.juvianstudio.workers.dev\",\"updatedAt\":\"2026-11-24T09:02:07.284122Z\"}",
+  "payload": {
+    "mqttRelays": [
+      {
+        "url": "wss://broker.hivemq.com/mqtt",
+        "port": 8884
+      },
+      {
+        "url": "wss://test.mosquitto.org",
+        "port": 8081
+      },
+      {
+        "url": "wss://broker.emqx.io/mqtt",
+        "port": 8084
+      }
+    ],
+    "turnApiUrl": "https://ghostchat-relay-gate.juvianstudio.workers.dev",
+    "updatedAt": "2026-11-24T09:02:07.284122Z"
+  },
+  "signature": "19cc3cb9546487fc66fd9a26dd4f6cdaa2bee130a1bb738fd13597fcdea0b8ee77b47af81dde5954dfb7b8b1a2a064e2bc7e88c3a561558653405336bc896c0a"
+}

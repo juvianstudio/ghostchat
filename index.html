@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#070614" />
   <meta name="color-scheme" content="dark" />
   
-  <title>Ghost Chat — Serverless P2P Encrypted Messenger</title>
-  <meta name="description" content="Ghost Chat is a serverless peer-to-peer encrypted messaging client. Zero central servers, zero cloud databases, zero metadata collection. Powered by Waku P2P & Signal Double Ratchet protocol." />
+  <title>Ghost Chat — Decentralized P2P Encrypted Messenger &amp; Desktop Companion</title>
+  <meta name="description" content="Ghost Chat is a serverless peer-to-peer encrypted messaging platform for Android, iOS, Windows, macOS, and Linux. Zero central servers, zero cloud databases, zero metadata collection. Powered by Waku P2P mesh &amp; X25519 ChaCha20-Poly1305 encryption." />
   
   <meta property="og:title" content="Ghost Chat — Decentralized P2P Encrypted Messenger" />
-  <meta property="og:description" content="Zero central servers. Zero message logs. 100% peer-to-peer end-to-end encrypted private communication." />
+  <meta property="og:description" content="Zero central servers. Zero phone numbers. Multi-device companion linking for Windows, macOS, Linux, iOS &amp; Android. 100% peer-to-peer end-to-end encrypted." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://juvianstudio.github.io/ghostchat/" />
 
@@ -1311,9 +1311,11 @@
             <i class="fa-solid fa-download"></i> Download <i class="fa-solid fa-chevron-down nav-chevron" style="font-size: 0.65rem; color: #FFF;"></i>
           </a>
           <div class="nav-dropdown-menu download-dropdown-menu">
-            <a href="#" onclick="openComingSoon(event, 'Google Play')"><i class="fa-brands fa-google-play"></i> Google Play</a>
-            <a href="#" onclick="openComingSoon(event, 'App Store')"><i class="fa-brands fa-apple"></i> App Store</a>
-            <a href="#" onclick="openComingSoon(event, 'Microsoft Store')"><i class="fa-brands fa-windows"></i> Microsoft Store</a>
+            <a href="#" onclick="openComingSoon(event, 'Google Play (Android)')"><i class="fa-brands fa-google-play"></i> Android (Google Play)</a>
+            <a href="#" onclick="openComingSoon(event, 'App Store (iOS)')"><i class="fa-brands fa-apple"></i> iOS (App Store)</a>
+            <a href="#" onclick="openComingSoon(event, 'macOS Companion')"><i class="fa-brands fa-apple"></i> macOS (Companion)</a>
+            <a href="#" onclick="openComingSoon(event, 'Windows Companion')"><i class="fa-brands fa-windows"></i> Windows (Companion)</a>
+            <a href="#" onclick="openComingSoon(event, 'Linux Companion')"><i class="fa-brands fa-linux"></i> Linux (Companion)</a>
           </div>
         </li>
       </ul>
@@ -1353,12 +1355,21 @@
           <i class="fa-brands fa-discord"></i> Discord Community
         </a>
 
-        <div class="mobile-stores-row">
-          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Google Play'); closeMobileMenu();">
+        <div class="mobile-stores-row" style="flex-wrap: wrap; gap: 0.5rem;">
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Google Play (Android)'); closeMobileMenu();" style="flex: 1 1 45%; font-size: 0.8rem; padding: 0.7rem 0.5rem; justify-content: center;">
             <i class="fa-brands fa-google-play"></i> Android
           </a>
-          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'App Store'); closeMobileMenu();">
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'App Store (iOS)'); closeMobileMenu();" style="flex: 1 1 45%; font-size: 0.8rem; padding: 0.7rem 0.5rem; justify-content: center;">
             <i class="fa-brands fa-apple"></i> iOS
+          </a>
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'macOS Companion'); closeMobileMenu();" style="flex: 1 1 30%; font-size: 0.8rem; padding: 0.7rem 0.5rem; justify-content: center;">
+            <i class="fa-brands fa-apple"></i> macOS
+          </a>
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Windows Companion'); closeMobileMenu();" style="flex: 1 1 30%; font-size: 0.8rem; padding: 0.7rem 0.5rem; justify-content: center;">
+            <i class="fa-brands fa-windows"></i> Windows
+          </a>
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Linux Companion'); closeMobileMenu();" style="flex: 1 1 30%; font-size: 0.8rem; padding: 0.7rem 0.5rem; justify-content: center;">
+            <i class="fa-brands fa-linux"></i> Linux
           </a>
         </div>
       </div>
@@ -1379,7 +1390,7 @@
       </h1>
 
       <p class="hero-subtitle">
-        Ghost Chat is a peer-to-peer messaging network. Your messages travel directly across decentralized node relays without touching central cloud servers or databases.
+        Ghost Chat is a serverless peer-to-peer messaging network. Zero cloud servers, zero central databases, and instant end-to-end encrypted multi-device companion pairing for Windows, macOS, and Linux via optical QR code.
       </p>
 
       <!-- Deep Link Invite Card (Dynamically displayed when ?id= parameter is in URL) -->
@@ -1397,14 +1408,20 @@
       <!-- Action Buttons -->
       <div id="download" class="cta-group">
         <div class="cta-row-stores">
-          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Google Play')">
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Google Play (Android)')">
             <i class="fa-brands fa-google-play"></i> Google Play
           </a>
-          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'App Store')">
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'App Store (iOS)')">
             <i class="fa-brands fa-apple"></i> App Store
           </a>
-          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Microsoft Store')">
-            <i class="fa-brands fa-windows"></i> Microsoft Store
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'macOS Companion')">
+            <i class="fa-brands fa-apple"></i> macOS
+          </a>
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Windows Companion')">
+            <i class="fa-brands fa-windows"></i> Windows
+          </a>
+          <a href="#" class="btn-primary" onclick="openComingSoon(event, 'Linux Companion')">
+            <i class="fa-brands fa-linux"></i> Linux
           </a>
         </div>
         <div class="cta-row-discord">
@@ -1420,11 +1437,11 @@
       <div class="phone-stage-glow"></div>
       
       <div class="floating-feature-tag tag-top-left">
-        <i class="fa-solid fa-shield-halved" style="color:var(--accent-cyan);"></i> Double Ratchet E2EE
+        <i class="fa-solid fa-shield-halved" style="color:var(--accent-cyan);"></i> X25519 + ChaCha20-Poly1305
       </div>
 
       <div class="floating-feature-tag tag-bottom-right">
-        <i class="fa-solid fa-ghost" style="color:var(--accent-pink);"></i> View-Once Ghost Media
+        <i class="fa-solid fa-laptop" style="color:var(--accent-pink);"></i> Multi-Device QR Companion
       </div>
 
       <div class="phone-mockup-frame">
@@ -1485,32 +1502,68 @@
       <div class="bento-grid">
         <div class="bento-card bento-span-2">
           <div class="bento-icon"><i class="fa-solid fa-network-wired"></i></div>
-          <h3>Serverless Peer-to-Peer Mesh Network</h3>
-          <p>Messages travel directly across decentralized peer-to-peer relay nodes (Waku protocol). No central cloud servers, no intermediate databases, and no single point of failure ever touches your data.</p>
+          <h3>Decentralized Relay Mesh &amp; Signed Failover</h3>
+          <p>Messages and call signaling route across decentralized WebSocket relays with automatic multi-relay failover and Ed25519-signed relay discovery. No central user accounts, no cloud message databases, and no single point of failure.</p>
         </div>
 
         <div class="bento-card">
-          <div class="bento-icon"><i class="fa-solid fa-key"></i></div>
-          <h3>Double Ratchet Signal E2EE</h3>
-          <p>Every chat session, image, voice note, and P2P call is cryptographically sealed using Signal Double Ratchet protocol end-to-end encryption.</p>
+          <div class="bento-icon"><i class="fa-solid fa-laptop"></i></div>
+          <h3>Multi-Device QR Companion &amp; Simultaneous Ringing</h3>
+          <p>Link Windows, macOS, and Linux companion apps via a 256-bit optical QR handshake (ephemeral X25519 + ChaCha20-Poly1305). Syncs chats, contacts, reactions, and simultaneous voice/video call ringing with zero cloud storage.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>v3 Forward Secrecy &amp; Sealed Sender</h3>
+          <p>Every message uses a fresh ephemeral X25519 keypair, HKDF-SHA256, and ChaCha20-Poly1305 AEAD, wrapped inside an anonymous Sealed Sender wire envelope so relays cannot see who is messaging whom.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-phone-volume"></i></div>
+          <h3>Encrypted WebRTC Calls &amp; Strict P2P Mode</h3>
+          <p>End-to-end encrypted DTLS-SRTP voice and video calls with native iOS CallKit/PushKit lock-screen ringing, automatic ICE reconnection, optional NAT-traversal TURN fallback, and a Strict Direct P2P Only privacy toggle.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-fingerprint"></i></div>
+          <h3>60-Digit Safety Numbers</h3>
+          <p>Verify active contact cryptographic identity with 60-digit numerical fingerprints and optical verification QR codes to mathematically guarantee zero man-in-the-middle attacks.</p>
         </div>
 
         <div class="bento-card">
           <div class="bento-icon"><i class="fa-solid fa-user-shield"></i></div>
-          <h3>Zero Metadata &amp; No Phone Numbers</h3>
-          <p>No phone numbers, emails, or accounts required. Your identity is represented strictly by your local public key string.</p>
+          <h3>Zero Metadata &amp; 18 Auto-Detected Languages</h3>
+          <p>No phone numbers, emails, passwords, or usernames required. Automatically adapts to your device language across 18 languages with instant cross-platform QR and invite links.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-lock"></i></div>
+          <h3>Duress PIN &amp; Anti-Tamper Auto-Wipe</h3>
+          <p>Configure a secret Duress PIN to silently shred local message vaults while appearing to unlock the app normally. An anti-tamper lockout shreds local encrypted vaults automatically after 10 failed PIN attempts.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fa-solid fa-key"></i></div>
+          <h3>Encrypted .ghostkey Backups</h3>
+          <p>Export portable cryptographic backups protected by PBKDF2 (100,000 iterations) key derivation and ChaCha20-Poly1305 authenticated encryption. Store your offline keys with total confidence.</p>
         </div>
 
         <div class="bento-card">
           <div class="bento-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
-          <h3>Automated Self-Destruct Timers</h3>
-          <p>Configure automatic ephemeral timers to shred local message databases permanently from both devices once read.</p>
+          <h3>View-Once Media &amp; Ephemeral Timers</h3>
+          <p>Send view-once photos that shred upon closing, and configure automatic self-destruct timers that permanently wipe chat messages from both devices after reading.</p>
+        </div>
+
+        <div class="bento-card bento-span-2">
+          <div class="bento-icon"><i class="fa-solid fa-ban"></i></div>
+          <h3>In-App User Protection &amp; Instant Blocking</h3>
+          <p>Compliant with Apple App Store Guideline 1.2 and Google Play User-Generated Content standards. Instantly block abusive contacts with a single tap to silence inbound traffic, or submit abuse reports directly through the built-in report dialog.</p>
         </div>
 
         <div class="bento-card">
           <div class="bento-icon"><i class="fa-solid fa-trash-arrow-up"></i></div>
           <h3>1-Tap Complete Local Device Purge</h3>
-          <p>Purge all local SQLite chat databases, keypairs, contacts, and media files instantly with a single tap in app settings.</p>
+          <p>Purge all local AES-256 encrypted chat vaults, keypairs, media files, and linked companion tokens permanently in 1 tap from Settings. Nothing remains recoverable.</p>
         </div>
       </div>
     </div>
@@ -1550,37 +1603,48 @@
           <div id="privacy-tab" class="tab-content active">
             <div id="privacy"></div>
             <h2>Privacy Policy</h2>
-            <div class="effective-date">Effective Date: August 8, 2026 | Published by Juvian Studio</div>
+            <div class="effective-date">Effective Date: November 24, 2026 | Published by Juvian Studio</div>
 
-            <p>Ghost Chat ("we", "our", or "us") is committed to total user privacy and security. This Privacy Policy details our serverless architecture and strict zero-data collection practices in compliance with Google Play Store, Apple App Store, and Microsoft Store guidelines.</p>
+            <p>Ghost Chat ("we", "our", or "us") is committed to absolute user privacy and sovereign security. This Privacy Policy details our decentralized, zero-knowledge architecture and strict zero-data collection practices in compliance with Google Play Store, Apple App Store, Microsoft Store, and international privacy standards.</p>
 
             <h3>1. Zero Central Data Collection</h3>
-            <p>Ghost Chat operates entirely as a serverless peer-to-peer (P2P) client. We <strong>do not collect, store, track, transmit, or monetize any personal data</strong>, IP addresses, contact lists, phone numbers, location data, or analytical telemetry.</p>
+            <p>Ghost Chat operates as a decentralized peer-to-peer (P2P) client. We <strong>do not collect, store, track, sell, or monetize any personal data</strong>, contact lists, phone numbers, email addresses, message contents, location data, or analytical telemetry. There are no user accounts, no registration forms, no tracking cookies, and no advertising or analytics SDKs in the application.</p>
 
             <h3>2. On-Device Local Encrypted Storage</h3>
-            <p>All message histories, contact lists, cryptographic keypairs, and application preferences are stored strictly on your local device's isolated storage using local database encryption. Your private keys never leave your physical device.</p>
+            <p>All message histories, contact lists, cryptographic keypairs (X25519), and application preferences are stored strictly on your local device's isolated storage using local AES-256 encrypted Hive vaults and ChaCha20-Poly1305 encryption. Hardware-backed secure storage (iOS Keychain, Android EncryptedSharedPreferences, and ChaCha20-Poly1305 encrypted desktop vaults) is utilized to safeguard your private cryptographic keys. Your private keys never leave your physical device.</p>
 
-            <h3>3. Device Permissions Explained</h3>
+            <h3>3. Stateless Network Relays &amp; Push Notifications (Zero-Knowledge)</h3>
+            <p>To deliver encrypted messages and calls reliably across restrictive mobile networks and locked screens without operating any central user database, Ghost Chat connects only to minimal, stateless transport helpers:</p>
             <ul>
-              <li><strong>Camera:</strong> Used strictly for scanning QR codes to add contacts and conducting peer-to-peer video calls.</li>
-              <li><strong>Microphone:</strong> Used strictly for voice and video calls initiated by the user.</li>
-              <li><strong>Storage / Media:</strong> Used solely to allow selecting file attachments to send over encrypted P2P connections.</li>
-              <li><strong>Notifications:</strong> Used to alert you of incoming messages or call requests.</li>
+              <li><strong>Decentralized Encrypted Message Relays:</strong> Messages are encrypted client-side with per-message ephemeral X25519 Forward Secrecy (<code>v3:</code>) and wrapped in an anonymous Sealed Sender envelope before crossing public decentralized WebSocket relays. Relay endpoints are discovered via an Ed25519-signed read-only manifest.</li>
+              <li><strong>Optional WebRTC STUN / TURN NAT Traversal:</strong> Voice and video calls connect peer-to-peer using DTLS-SRTP encryption. When direct P2P is blocked by strict cellular NATs or firewalls, the app may request temporary TURN relay credentials from a stateless, rate-limited edge worker. Users can disable TURN completely at any time via <strong>Settings &gt; Privacy &gt; Strict Direct P2P Only</strong>.</li>
+              <li><strong>Apple APNs &amp; PushKit Wake Delivery (iOS):</strong> On iOS, locked-screen call wakes and message alerts use Apple Push Notification service (APNs / PushKit) forwarded via a stateless, log-free edge relay. Push payloads contain only a generic wake alert or an end-to-end encrypted call offer—never plaintext message content, sender names, or user accounts.</li>
             </ul>
 
-            <h3>4. Children's Privacy Protection</h3>
-            <p>Ghost Chat is not directed to children under the age of 13. We do not knowingly collect, request, or solicit personal data from anyone under the age of 13. Because our application is serverless and operates strictly via local on-device encryption, no personal data is stored on external servers.</p>
+            <h3>4. Device Permissions Explained</h3>
+            <ul>
+              <li><strong>Camera:</strong> Used strictly for scanning contact invite QR codes, scanning desktop companion pairing QR codes, and user-initiated peer-to-peer video calls. Camera frames are never stored or transmitted to any server.</li>
+              <li><strong>Microphone:</strong> Used strictly for encrypted peer-to-peer voice/video calls and voice message recordings initiated by the user.</li>
+              <li><strong>Storage / Media:</strong> Used solely to allow selecting file and media attachments to send over encrypted P2P connections, and for saving or importing encrypted <code>.ghostkey</code> password-protected key vault backups.</li>
+              <li><strong>Notifications:</strong> Used solely to deliver local or wake alerts for incoming encrypted messages or call invitations.</li>
+            </ul>
 
-            <h3>5. Account &amp; Complete Data Deletion</h3>
-            <p>Because Ghost Chat maintains no central user accounts or cloud databases, user data deletion is fully under your control. To delete all application data, select <strong>Settings &gt; Clear All Data</strong> in the app, or uninstall the app. This permanently purges all local keys and chat databases immediately.</p>
+            <h3>5. Multi-Device Companion Linking &amp; Zero-Cloud Sync</h3>
+            <p>Ghost Chat offers companion desktop applications for Windows, macOS, and Linux. Linking a desktop companion is performed via an ephemeral optical QR code handshake using X25519 key exchange and ChaCha20-Poly1305 authenticated encryption over the peer mesh. <strong>No messages, private keys, or account data are ever uploaded to cloud servers.</strong> Users maintain absolute control and can revoke any linked desktop companion at any time from mobile <code>Settings &gt; Linked Devices</code>, which immediately issues an authenticated remote wipe payload to purge the companion's local vault.</p>
 
-            <h3>6. EU Privacy &amp; ePrivacy Cookie Exemption Notice</h3>
-            <p>This official website (juvianstudio.github.io/ghostchat) is a static informational website. It uses <strong>ZERO cookies, ZERO tracking pixels, ZERO web analytics, and ZERO third-party trackers</strong>. Under the EU ePrivacy Directive and GDPR guidelines, static sites with zero cookies do not require invasive cookie banners.</p>
+            <h3>6. Children's Privacy Protection (COPPA / GDPR-K)</h3>
+            <p>Ghost Chat is not directed to children under the age of 13. We do not knowingly collect, request, or solicit personal data from anyone under the age of 13. Because our application is decentralized and operates strictly via local on-device encryption, no personal data is stored on external servers.</p>
 
-            <h3>7. US State Privacy Rights (CCPA / CPRA / Virginia CDPA)</h3>
-            <p>Under the California Consumer Privacy Act (CCPA), CPRA, and related state privacy laws, residents have the right to opt out of the sale or sharing of personal data. Ghost Chat collects, processes, sells, or shares <strong>ZERO personal information</strong>. We do not sell or monetize user data under any circumstances.</p>
+            <h3>7. Account &amp; Complete Data Deletion</h3>
+            <p>Because Ghost Chat maintains no central user accounts or cloud databases, user data deletion is fully under your control. To delete all application data, select <strong>Settings &gt; Delete Identity &amp; All Data</strong> in the app, or uninstall the app. This permanently purges all local keys, linked device authorizations, and encrypted local Hive chat vaults immediately. For complete step-by-step instructions, see our <a href="#delete-data" onclick="switchTab(event, 'delete-data')" style="color:var(--accent-cyan);">Data Deletion Policy</a>.</p>
 
-            <h3>8. Publisher Imprint &amp; Legal Contact (EU DSA Compliance)</h3>
+            <h3>8. EU Privacy &amp; ePrivacy Cookie Exemption Notice</h3>
+            <p>This official website (juvianstudio.github.io/ghostchat) is a static informational website. It uses <strong>ZERO cookies, ZERO tracking pixels, ZERO web analytics, and ZERO third-party trackers</strong>. Under the EU ePrivacy Directive and GDPR guidelines, static sites with zero cookies do not require cookie consent banners.</p>
+
+            <h3>9. US State Privacy Rights (CCPA / CPRA / CalOPPA / Virginia CDPA)</h3>
+            <p>Under the California Consumer Privacy Act (CCPA), CPRA, and related state privacy laws, residents have the right to opt out of the sale or sharing of personal data. Ghost Chat collects, processes, sells, or shares <strong>ZERO personal information</strong>. We do not sell, rent, or monetize user data under any circumstances.</p>
+
+            <h3>10. Publisher Imprint &amp; Legal Contact (EU DSA Compliance)</h3>
             <p>
               App &amp; Website Publisher: <strong>Juvian Studio</strong><br>
               Official Legal &amp; Compliance Email: <a href="mailto:juvianstudio@gmail.com" style="color:var(--accent-cyan);">juvianstudio@gmail.com</a><br>
@@ -1592,25 +1656,39 @@
           <div id="terms-tab" class="tab-content">
             <div id="terms"></div>
             <h2>Terms of Service</h2>
-            <div class="effective-date">Effective Date: August 8, 2026 | Published by Juvian Studio</div>
+            <div class="effective-date">Effective Date: November 24, 2026 | Published by Juvian Studio</div>
 
             <p>By installing or using Ghost Chat, you agree to these Terms of Service and our <a href="#disclaimer" onclick="switchTab(event, 'disclaimer')" style="color:var(--accent-cyan);">Legal Disclaimer &amp; Developer Liability Exemption</a>.</p>
 
-            <h3>1. Peer-to-Peer Protocol</h3>
-            <p>Ghost Chat functions as a decentralized peer-to-peer client utilizing open Waku relay protocols. Messages are routed directly between network peers without centralized intermediary servers.</p>
+            <h3>1. Decentralized Peer-to-Peer Protocol</h3>
+            <p>Ghost Chat functions as a decentralized peer-to-peer client utilizing open Waku relay protocols. Messages and call signaling are routed directly between network peers without centralized intermediary servers, central authentication databases, or cloud logging.</p>
 
-            <h3>2. User Safety &amp; Objectionable Content Policy</h3>
-            <p>In accordance with Apple App Store Guideline 1.2 and Google Play Store User Generated Content policies, Ghost Chat enforces a strict zero-tolerance policy for illegal content, harassment, hate speech, or abuse. Ghost Chat provides in-app contact blocking features allowing users to instantly block and remove any abusive contacts from their device.</p>
+            <h3>2. User-Generated Content (UGC) &amp; Zero-Tolerance Policy (Apple Guideline 1.2 &amp; Google Play UGC)</h3>
+            <p>Ghost Chat enforces a strict zero-tolerance policy against objectionable, abusive, or unlawful content. Users are strictly prohibited from transmitting:</p>
+            <ul>
+              <li>Defamatory, obscene, offensive, hateful, or sexually explicit material.</li>
+              <li>Harassment, threats, bullying, stalking, or incitement of violence against any individual or group.</li>
+              <li>Child sexual abuse material (CSAM) or any exploitation of minors.</li>
+              <li>Fraudulent, deceptive, illegal, or malicious activities.</li>
+            </ul>
 
-            <h3>3. Disclaimer of Warranties &amp; Developer Exemption</h3>
-            <p>Ghost Chat is provided "AS IS" without warranties of any kind. The developer/publisher (Juvian Studio) holds zero liability for user actions, transmitted content, or data loss. For full details, see our <a href="#disclaimer" onclick="switchTab(event, 'disclaimer')" style="color:var(--accent-cyan);">Legal Disclaimer &amp; Liability Protection</a>.</p>
+            <h3>3. Built-In User Safety, Blocking &amp; Reporting Mechanisms</h3>
+            <p>In accordance with Apple App Store Guideline 1.2 and Google Play Store policies, Ghost Chat provides comprehensive on-device safety tools:</p>
+            <ul>
+              <li><strong>Instant Local Blocking:</strong> Users can block any contact at any time from the chat menu (<code>Chat Options &gt; Block Contact</code>) or profile view. Blocking immediately suppresses all incoming messages, media, and call invitations from that cryptographic identity.</li>
+              <li><strong>In-App Abuse Reporting:</strong> Users can submit abuse reports directly within the application by selecting <code>Chat Options &gt; Report &amp; Block User</code> or by emailing <a href="mailto:juvianstudio@gmail.com" style="color:var(--accent-cyan);">juvianstudio@gmail.com</a>.</li>
+              <li><strong>Timely Developer Action:</strong> Juvian Studio actively investigates all submitted reports within 24 hours. While Ghost Chat does not inspect end-to-end encrypted messages, validated reports of abuse, spamming, or fraudulent network relay activity result in immediate protocol-level node filtering and client blacklist updates.</li>
+            </ul>
+
+            <h3>4. Disclaimer of Warranties &amp; Developer Exemption</h3>
+            <p>Ghost Chat is provided "AS IS" without warranties of any kind. The developer and publisher (Juvian Studio) hold zero liability for user conduct, transmitted content, or data loss. For complete details, see our <a href="#disclaimer" onclick="switchTab(event, 'disclaimer')" style="color:var(--accent-cyan);">Legal Disclaimer &amp; Liability Protection</a>.</p>
           </div>
 
           <!-- 3. LEGAL DISCLAIMER & LIABILITY PROTECTION -->
           <div id="disclaimer-tab" class="tab-content">
             <div id="disclaimer"></div>
             <h2>Legal Disclaimer &amp; Liability Protection</h2>
-            <div class="effective-date">Developer &amp; Publisher Legal Exemption Notice | Effective August 8, 2026</div>
+            <div class="effective-date">Developer &amp; Publisher Legal Exemption Notice | Effective November 24, 2026</div>
 
             <div style="background: rgba(255, 0, 128, 0.08); border: 1px solid rgba(255, 0, 128, 0.3); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1.75rem;">
               <p style="color: #FFF; font-weight: 700; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
@@ -1654,32 +1732,36 @@
             <p>It is the sole responsibility of the user to ensure that installing and using peer-to-peer encrypted messaging software complies with all laws and regulations in their local country or legal jurisdiction.</p>
 
             <h3>8. US Cryptography Export Compliance (EAR / EAR99)</h3>
-            <p>Ghost Chat incorporates standard open-source cryptographic algorithms (Signal Double Ratchet, Curve25519, AES-256-GCM). Under United States Export Administration Regulations (EAR), publicly available open-source encryption software distributed without commercial restriction falls under classification EAR99 / TSU (Technology and Software Unrestricted). Users downloading or deploying this software in foreign jurisdictions are responsible for complying with international import/export control laws.</p>
+            <p>Ghost Chat incorporates standard open-source cryptographic algorithms (Curve25519/X25519, ChaCha20-Poly1305 AEAD, HKDF-SHA256, PBKDF2). Under United States Export Administration Regulations (EAR), publicly available open-source encryption software distributed without commercial restriction falls under classification EAR99 / TSU (Technology and Software Unrestricted). Users downloading or deploying this software in foreign jurisdictions are responsible for complying with international import/export control laws.</p>
           </div>
 
           <!-- 3. DATA DELETION TAB -->
           <div id="delete-data-tab" class="tab-content">
             <div id="delete-data"></div>
             <h2>Data Deletion &amp; Account Purge Policy</h2>
-            <div class="effective-date">Google Play Store Data Deletion Policy Compliance</div>
+            <div class="effective-date">Google Play Store &amp; Apple App Store Compliance | Effective November 24, 2026</div>
 
-            <p>Google Play Store policies require developers to provide clear instructions on how users can request or execute complete deletion of their account and associated data.</p>
+            <p>Google Play Store and Apple App Store policies require developers to provide clear, accessible instructions on how users can request or execute complete deletion of their account and associated personal data.</p>
 
             <h3>1. Serverless Architecture &amp; Zero Central Data</h3>
-            <p>Ghost Chat operates entirely as a serverless peer-to-peer (P2P) application. <strong>We do not maintain user accounts, central cloud databases, email lists, or remote telemetry servers.</strong> Therefore, there is no user data stored on central servers to delete or request deletion for.</p>
+            <p>Ghost Chat operates entirely as a decentralized peer-to-peer (P2P) application. <strong>We do not maintain user accounts, central cloud databases, email lists, contact books, or remote telemetry servers.</strong> Therefore, there is no personal user data stored on any central server to delete or request deletion for.</p>
 
             <h3>2. How to Completely Purge Your Local Data</h3>
-            <p>Because all message histories, cryptographic keypairs, contacts, and media files reside strictly on your personal device's local encrypted storage, you have full authority over your data:</p>
+            <p>Because all message histories, cryptographic keypairs, contacts, and media files reside strictly on your personal device's local encrypted storage, you have total authority over your data:</p>
 
             <ul>
-              <li><strong>Option A: In-App 1-Tap Data Purge</strong><br>
-              Open Ghost Chat &gt; Go to <strong>Settings</strong> &gt; Tap <strong>Clear All Data</strong>. This instantly wipes all local SQLite chat databases, media, and cryptographic keypairs from your device.</li>
-              <li><strong>Option B: Device App Uninstall</strong><br>
-              Uninstalling Ghost Chat from your mobile device permanently purges all local app data and sandboxed database files.</li>
+              <li><strong>Option A: 1-Tap Total Account &amp; Vault Destruction (In-App)</strong><br>
+              Open Ghost Chat &gt; Go to <strong>Settings</strong> &gt; Tap <strong>Delete Identity &amp; All Data</strong>. This permanently destroys your local X25519 cryptographic keypair, contacts, linked desktop authorizations, and encrypted local Hive chat vaults. Once confirmed, this data cannot be recovered by anyone.</li>
+              <li><strong>Option B: Clear Conversation History Only</strong><br>
+              Open Ghost Chat &gt; Go to <strong>Settings</strong> &gt; Tap <strong>Clear Chat Data</strong>. This wipes all conversation messages and cached media while retaining your public identity and contact list.</li>
+              <li><strong>Option C: Remote Desktop Companion Unlinking</strong><br>
+              Open Ghost Chat on mobile &gt; Go to <strong>Settings &gt; Linked Devices</strong> &gt; Tap <strong>Unlink</strong> next to any computer. Your phone immediately transmits an authenticated cryptographic revocation command that wipes the companion's local data vault remotely.</li>
+              <li><strong>Option D: Operating System App Uninstall</strong><br>
+              Uninstalling Ghost Chat from your device (Android, iOS, macOS, Windows, Linux) causes the operating system to permanently purge all local application data, sandboxed encrypted vault files, and cached media.</li>
             </ul>
 
-            <h3>3. Support Contact</h3>
-            <p>If you have any questions regarding data management or store compliance, you can contact us at:</p>
+            <h3>3. Store Reviewer &amp; User Support Contact</h3>
+            <p>If you have any questions regarding data management, account deletion, or store compliance, contact us directly:</p>
             <p>
               <strong>Email:</strong> <a href="mailto:juvianstudio@gmail.com" style="color:var(--accent-cyan);">juvianstudio@gmail.com</a><br>
               <strong>Community Support:</strong> <a href="https://discord.gg/sCf68qus9z" target="_blank" style="color:var(--accent-cyan);">Join Ghost Chat Discord</a>
@@ -1690,24 +1772,40 @@
           <div id="support-tab" class="tab-content">
             <div id="support"></div>
             <h2>Store Support &amp; Reviewer FAQ</h2>
-            <div class="effective-date">Information for Users &amp; Google Play Store Review Teams</div>
+            <div class="effective-date">Guidance for Apple App Store &amp; Google Play Store Review Teams</div>
 
-            <h3>Q: How do store reviewers test contact addition?</h3>
-            <p>Reviewers can open the app and tap <strong>"Add Contact"</strong> to either scan a QR code or paste a public key hex string to establish a P2P messaging session.</p>
+            <h3>Q: Are demo login credentials required for review?</h3>
+            <p>No. Ghost Chat does not require usernames, passwords, phone numbers, or email registration. When the app launches for the first time, it automatically generates a local X25519 cryptographic keypair on device and presents the chat interface immediately. Reviewers can test all features without credentials.</p>
 
-            <h3>Q: How does user blocking work in Ghost Chat?</h3>
-            <p>Users can tap on any contact profile or chat setting to block and delete a contact. Blocked contacts can no longer send messages or call requests.</p>
+            <h3>Q: How do review teams test messaging between two devices?</h3>
+            <p>Reviewers can test between two test devices or emulators:</p>
+            <ol style="margin-left: 1.5rem; color: var(--text-muted); line-height: 1.8;">
+              <li>On Device A, tap <strong>"Add Contact"</strong> to display your personal QR code and public Ghost ID.</li>
+              <li>On Device B, tap <strong>"Add Contact"</strong> and point the camera at Device A's QR code (or paste Device A's Ghost ID string).</li>
+              <li>The peer-to-peer session opens immediately and encrypted messages, photos, and calls can be exchanged.</li>
+            </ol>
 
-            <h3>Q: Where are messages stored?</h3>
-            <p>All database records are stored strictly in local encrypted SQLite files on the user's phone. No central servers or cloud backups are used.</p>
+            <h3>Q: How do review teams test Desktop Companion Linking (macOS, Windows, Linux)?</h3>
+            <p>Launch the companion app on a desktop computer. The desktop client displays a 256-bit optical pairing QR code. On your phone, go to <strong>Settings &gt; Linked Devices &gt; Link a Device</strong> and scan the desktop screen. The companion pairs securely within seconds via ephemeral X25519 ECDH + ChaCha20-Poly1305.</p>
 
-            <h3>Q: Are there any in-app purchases or subscriptions?</h3>
-            <p>No. Ghost Chat is 100% free with no in-app purchases, zero ads, and zero monetization trackers.</p>
+            <h3>Q: How do review teams verify Apple Guideline 1.2 (User-Generated Content)?</h3>
+            <p>Ghost Chat incorporates two distinct in-app mechanisms:</p>
+            <ul style="margin-left: 1.5rem; color: var(--text-muted); line-height: 1.8;">
+              <li><strong>Block User:</strong> Inside any chat, tap the top menu or contact header and tap <strong>"Block Contact"</strong>. The contact is instantly silenced and blocked from further messaging or calling.</li>
+              <li><strong>Report User:</strong> Inside any chat, tap the top menu and select <strong>"Report &amp; Block User"</strong>. This launches an abuse reporting modal allowing the user to submit an abuse report directly to the developer team at <code>juvianstudio@gmail.com</code>.</li>
+            </ul>
 
-            <h3>Q: How do I get support or report an issue?</h3>
-            <p>Join our active community on Discord or reach out directly to Juvian Studio support:</p>
+            <h3>Q: How do review teams test Data Deletion compliance?</h3>
+            <p>Go to <strong>Settings &gt; Delete Identity &amp; All Data</strong>. The application confirms the purge and wipes all local AES-256 encrypted Hive vaults and cryptographic keys from hardware storage, returning the app to its fresh installation state.</p>
+
+            <h3>Q: How do encrypted voice and video calls operate?</h3>
+            <p>Calls are established between devices using DTLS-SRTP encrypted WebRTC with end-to-end encrypted signaling (<code>v3:</code> Forward Secrecy) routed over decentralized relays, optional stateless TURN NAT traversal (which can be disabled via Strict Direct P2P Only), and native iOS CallKit/PushKit wake support. Camera and microphone permissions are requested only when a call is initiated or answered.</p>
+
+            <h3>Q: How do reviewers contact developer support?</h3>
+            <p>Reach out directly to the developer team for expedited responses during store review:</p>
             <p style="margin-top: 1rem;">
-              <a href="https://discord.gg/sCf68qus9z" target="_blank" class="btn-discord-hero" style="display:inline-flex;">
+              <strong>Email:</strong> <a href="mailto:juvianstudio@gmail.com" style="color:var(--accent-cyan);">juvianstudio@gmail.com</a><br>
+              <a href="https://discord.gg/sCf68qus9z" target="_blank" class="btn-discord-hero" style="display:inline-flex; margin-top:0.75rem;">
                 <i class="fa-brands fa-discord"></i> Join Discord Support Server
               </a>
             </p>
@@ -1931,16 +2029,6 @@
       }
     }
 
-    // Lightbox image preview handler
-    function openLightbox(imageSrc) {
-      const lightbox = document.getElementById('lightbox');
-      const img = document.getElementById('lightbox-img');
-      img.src = imageSrc;
-      lightbox.classList.add('active');
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
-    }
 
     // Coming Soon Modal Popup Handler
     function openComingSoon(evt, storeName) {
