@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <meta name="theme-color" content="#070614" />
   <meta name="color-scheme" content="dark" />
   
@@ -1213,65 +1213,200 @@
     }
 
     /* RESPONSIVE MEDIA QUERIES FOR MOBILE & TABLET */
+    html, body {
+      -webkit-tap-highlight-color: transparent;
+      max-width: 100vw;
+    }
+
     @media (max-width: 860px) {
       .nav-links { display: none; }
       .mobile-hamburger-btn { display: flex; }
-      header { top: 0.75rem; padding: 0 0.85rem; }
-      nav { height: 62px; padding: 0 1.1rem; }
-      
+      header { top: 0.6rem; padding: 0 0.75rem; }
+      nav { height: 58px; padding: 0 1rem; }
+      .nav-brand-text { font-size: 0.95rem; letter-spacing: 0.08em; }
+      .nav-logo-img { width: 32px; height: 32px; }
+
+      .hero-split {
+        padding: 2.25rem 0 3rem;
+        gap: 2.25rem;
+      }
+
+      /* Fix clipped left screenshots on mobile horizontal scroll */
+      .carousel-thumb-bar {
+        justify-content: flex-start;
+        padding: 0.75rem 0.25rem 1.5rem;
+        gap: 0.85rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .carousel-thumb-bar::-webkit-scrollbar { display: none; }
+      .thumb-pill {
+        width: 122px;
+        height: 218px;
+        opacity: 0.92;
+        scroll-snap-align: center;
+      }
+
+      .features-section { padding: 3.5rem 0; }
+      .docs-section { padding: 3rem 0 4.5rem; }
+      .section-header { margin-bottom: 2.25rem; }
+
+      .docs-portal-container {
+        padding: 1.15rem;
+        gap: 1.25rem;
+        border-radius: 20px;
+      }
+      .tab-content {
+        padding: 0.25rem 0.15rem;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+      .tab-content h2 { font-size: 1.45rem; }
+      .tab-content h3 { font-size: 1.05rem; margin: 1.35rem 0 0.55rem; }
+      .tab-content p, .tab-content li { font-size: 0.9rem; line-height: 1.65; }
+      .tab-content code { word-break: break-all; font-size: 0.82rem; }
+
       /* Mobile Legal Sidebar Tabs - Horizontal Scrollable Segment Bar */
       .sidebar-tabs {
         flex-direction: row;
         overflow-x: auto;
-        padding-bottom: 0.6rem;
+        padding-bottom: 0.65rem;
+        gap: 0.5rem;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
         border-bottom: 1px solid var(--border-light);
       }
+      .sidebar-tabs::-webkit-scrollbar { display: none; }
       .side-tab-btn {
         flex-shrink: 0;
         scroll-snap-align: start;
         white-space: nowrap;
-        padding: 0.7rem 1.1rem;
-        font-size: 0.85rem;
+        padding: 0.65rem 1rem;
+        font-size: 0.84rem;
+      }
+
+      .mobile-nav-content {
+        width: min(86vw, 340px);
+        padding: 1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+        overflow-y: auto;
+      }
+
+      footer {
+        padding: 2.5rem 0 calc(2.5rem + env(safe-area-inset-bottom));
+      }
+      .footer-links {
+        gap: 0.75rem 1.25rem;
+        font-size: 0.86rem;
       }
     }
 
     @media (max-width: 580px) {
+      .container {
+        padding: 0 1rem;
+      }
+      .pill-status-badge {
+        font-size: 0.68rem;
+        padding: 0.35rem 0.85rem;
+        margin-bottom: 1.25rem;
+        max-width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+      }
+      .hero-heading {
+        font-size: clamp(1.85rem, 8.2vw, 2.5rem);
+        line-height: 1.14;
+        margin-bottom: 1rem;
+      }
+      .hero-subtext {
+        font-size: 0.94rem;
+        line-height: 1.65;
+        margin-bottom: 1.75rem;
+      }
+      .section-title {
+        font-size: clamp(1.5rem, 6.8vw, 2rem);
+      }
       .cta-row-stores {
         flex-direction: column;
         width: 100%;
+        gap: 0.75rem;
       }
       .cta-row-stores .btn-primary {
         width: 100%;
         justify-content: center;
         min-height: 48px;
+        padding: 0.85rem 1.25rem;
+        font-size: 0.88rem;
       }
       .btn-discord-hero {
         width: 100%;
         justify-content: center;
         min-height: 48px;
+        padding: 0.85rem 1.25rem;
+        font-size: 0.88rem;
+      }
+      .hero-stage-right {
+        width: 100%;
+        padding: 0.5rem 0;
+        overflow: hidden;
+      }
+      .phone-stage-glow {
+        width: 240px;
+        height: 240px;
       }
       .phone-mockup-frame {
-        width: 245px;
-        height: 500px;
+        width: 235px;
+        height: 480px;
         padding: 8px;
-        border-radius: 36px;
+        border-radius: 34px;
       }
       .floating-feature-tag {
-        font-size: 0.68rem;
-        padding: 0.4rem 0.75rem;
+        font-size: 0.66rem;
+        padding: 0.36rem 0.68rem;
       }
       .tag-top-left {
-        left: -10px;
-        top: 3%;
+        left: 4px;
+        top: 2%;
       }
       .tag-bottom-right {
-        right: -10px;
-        bottom: 3%;
+        right: 4px;
+        bottom: 2%;
+      }
+      .bento-grid {
+        gap: 1rem;
       }
       .bento-card {
-        padding: 1.6rem;
+        padding: 1.35rem;
+        border-radius: 18px;
+      }
+      .bento-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+      .bento-card h3 {
+        font-size: 1.12rem;
+      }
+      .bento-card p {
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+      #lightbox img {
+        max-width: 92vw;
+        max-height: 76vh;
+        border-radius: 14px;
+      }
+      #lightbox-close {
+        top: calc(0.85rem + env(safe-area-inset-top));
+        right: 1rem;
+        font-size: 2.2rem;
+        padding: 0.25rem 0.5rem;
+      }
+      .modal-card {
+        width: 92vw;
+        padding: 1.75rem 1.35rem;
       }
     }
   </style>
@@ -1603,7 +1738,7 @@
           <div id="privacy-tab" class="tab-content active">
             <div id="privacy"></div>
             <h2>Privacy Policy</h2>
-            <div class="effective-date">Effective Date: November 24, 2026 | Published by Juvian Studio</div>
+            <div class="effective-date">Effective Date: November 27, 2026 | Published by Juvian Studio</div>
 
             <p>Ghost Chat ("we", "our", or "us") is committed to absolute user privacy and sovereign security. This Privacy Policy details our decentralized, zero-knowledge architecture and strict zero-data collection practices in compliance with Google Play Store, Apple App Store, Microsoft Store, and international privacy standards.</p>
 
@@ -1626,7 +1761,7 @@
               <li><strong>Camera:</strong> Used strictly for scanning contact invite QR codes, scanning desktop companion pairing QR codes, and user-initiated peer-to-peer video calls. Camera frames are never stored or transmitted to any server.</li>
               <li><strong>Microphone:</strong> Used strictly for encrypted peer-to-peer voice/video calls and voice message recordings initiated by the user.</li>
               <li><strong>Storage / Media:</strong> Used solely to allow selecting file and media attachments to send over encrypted P2P connections, and for saving or importing encrypted <code>.ghostkey</code> password-protected key vault backups.</li>
-              <li><strong>Notifications:</strong> Used solely to deliver local or wake alerts for incoming encrypted messages or call invitations.</li>
+              <li><strong>Notifications:</strong> Used solely to deliver local, desktop (macOS Notification Center / Windows Toast), or wake alerts for incoming encrypted messages or call invitations. On Windows and macOS, closing the main window minimizes Ghost Chat to the System Tray / Dock so real-time messages and calls continue working until you explicitly Quit.</li>
             </ul>
 
             <h3>5. Multi-Device Companion Linking &amp; Zero-Cloud Sync</h3>
@@ -1739,9 +1874,9 @@
           <div id="delete-data-tab" class="tab-content">
             <div id="delete-data"></div>
             <h2>Data Deletion &amp; Account Purge Policy</h2>
-            <div class="effective-date">Google Play Store &amp; Apple App Store Compliance | Effective November 24, 2026</div>
+            <div class="effective-date">Google Play Store, Apple App Store &amp; Microsoft Store Compliance | Effective November 27, 2026</div>
 
-            <p>Google Play Store and Apple App Store policies require developers to provide clear, accessible instructions on how users can request or execute complete deletion of their account and associated personal data.</p>
+            <p>Google Play Store, Apple App Store, and Microsoft Store policies require developers to provide clear, accessible instructions on how users can request or execute complete deletion of their account and associated personal data.</p>
 
             <h3>1. Serverless Architecture &amp; Zero Central Data</h3>
             <p>Ghost Chat operates entirely as a decentralized peer-to-peer (P2P) application. <strong>We do not maintain user accounts, central cloud databases, email lists, contact books, or remote telemetry servers.</strong> Therefore, there is no personal user data stored on any central server to delete or request deletion for.</p>
@@ -1772,7 +1907,7 @@
           <div id="support-tab" class="tab-content">
             <div id="support"></div>
             <h2>Store Support &amp; Reviewer FAQ</h2>
-            <div class="effective-date">Guidance for Apple App Store &amp; Google Play Store Review Teams</div>
+            <div class="effective-date">Guidance for Apple App Store, Mac App Store, Google Play Store &amp; Microsoft Store Review Teams</div>
 
             <h3>Q: Are demo login credentials required for review?</h3>
             <p>No. Ghost Chat does not require usernames, passwords, phone numbers, or email registration. When the app launches for the first time, it automatically generates a local X25519 cryptographic keypair on device and presents the chat interface immediately. Reviewers can test all features without credentials.</p>
@@ -1785,8 +1920,8 @@
               <li>The peer-to-peer session opens immediately and encrypted messages, photos, and calls can be exchanged.</li>
             </ol>
 
-            <h3>Q: How do review teams test Desktop Companion Linking (macOS, Windows, Linux)?</h3>
-            <p>Launch the companion app on a desktop computer. The desktop client displays a 256-bit optical pairing QR code. On your phone, go to <strong>Settings &gt; Linked Devices &gt; Link a Device</strong> and scan the desktop screen. The companion pairs securely within seconds via ephemeral X25519 ECDH + ChaCha20-Poly1305.</p>
+            <h3>Q: How do review teams test Desktop Companion Linking (Windows, macOS, Linux)?</h3>
+            <p>Launch the companion app on Windows, macOS, or Linux. The desktop client displays a 256-bit optical pairing QR code. On your phone, go to <strong>Settings &gt; Linked Devices &gt; Link a Device</strong> and scan the desktop screen. The companion pairs securely within seconds via ephemeral X25519 ECDH + ChaCha20-Poly1305. Closing the window hides Ghost Chat to the Windows System Tray or macOS Dock so notifications and calls stay active; right-click the Windows tray icon &gt; <strong>Quit Ghost Chat</strong> (or press <strong>Cmd+Q</strong> on macOS) to exit completely.</p>
 
             <h3>Q: How do review teams verify Apple Guideline 1.2 (User-Generated Content)?</h3>
             <p>Ghost Chat incorporates two distinct in-app mechanisms:</p>
@@ -2092,6 +2227,25 @@
 
       // Start independent hero phone auto-swipe loop
       startHeroAutoSwipe();
+
+      // Enable touch swipe left/right inside screenshot lightbox on mobile
+      const lightboxEl = document.getElementById('lightbox');
+      if (lightboxEl) {
+        let touchStartX = 0;
+        lightboxEl.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+          }
+        }, { passive: true });
+        lightboxEl.addEventListener('touchend', (e) => {
+          if (!e.changedTouches || e.changedTouches.length !== 1) return;
+          const dx = e.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(dx) > 45) {
+            if (dx < 0) nextLightboxImage(e);
+            else prevLightboxImage(e);
+          }
+        }, { passive: true });
+      }
     });
   </script>
 </body>
