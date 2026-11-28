@@ -29,7 +29,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: clamp(14px, 4vw, 24px);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
       background: radial-gradient(circle at top, #1b1536 0%, var(--bg) 55%);
       color: var(--text);
@@ -40,7 +40,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 32px 26px;
+      padding: clamp(22px, 6vw, 32px) clamp(18px, 5vw, 26px);
       text-align: center;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
     }
@@ -230,7 +230,83 @@
       return typeof id === 'string' && /^[0-9a-fA-F]{64}$/.test(id.trim());
     }
 
+    function getLocalizedStrings() {
+      const lang = ((navigator.language || 'en').toLowerCase()).split('-')[0];
+      const dict = {
+        ro: {
+          headline: 'Alătură-te mie pe Ghost Chat',
+          invitedBy: ' te-a invitat pe Ghost Chat',
+          subtitle: 'Fără numere de telefon, fără conturi și fără servere centrale. Apasă mai jos pentru a adăuga contactul în siguranță.',
+          openBtn: 'Deschide în Ghost Chat',
+          copyBtn: 'Copiază Ghost ID',
+          divider: 'Nu ai încă Ghost Chat?',
+          download: 'Descarcă Ghost Chat',
+          copied: 'Ghost ID copiat! Lipește-l în Ghost Chat → Adaugă contact.',
+          invalid: 'Acest link de invitație nu conține un Ghost ID valid de 64 caractere.'
+        },
+        es: {
+          headline: 'Únete a mí en Ghost Chat',
+          invitedBy: ' te invitó a Ghost Chat',
+          subtitle: 'Sin números de teléfono, sin cuentas y sin servidores centrales. Toca abajo para añadir este contacto.',
+          openBtn: 'Abrir en Ghost Chat',
+          copyBtn: 'Copiar Ghost ID',
+          divider: '¿Aún no tienes Ghost Chat?',
+          download: 'Descargar Ghost Chat',
+          copied: '¡Ghost ID copiado! Pégalo en Ghost Chat → Añadir contacto.',
+          invalid: 'Este enlace no contiene un Ghost ID válido de 64 caracteres.'
+        },
+        fr: {
+          headline: 'Rejoins-moi sur Ghost Chat',
+          invitedBy: ' vous a invité sur Ghost Chat',
+          subtitle: 'Aucun numéro de téléphone, aucun compte et aucun serveur central. Appuyez ci-dessous pour ajouter ce contact.',
+          openBtn: 'Ouvrir dans Ghost Chat',
+          copyBtn: 'Copier le Ghost ID',
+          divider: 'Pas encore Ghost Chat ?',
+          download: 'Télécharger Ghost Chat',
+          copied: 'Ghost ID copié ! Collez-le dans Ghost Chat → Ajouter un contact.',
+          invalid: 'Ce lien ne contient pas un Ghost ID valide de 64 caractères.'
+        },
+        de: {
+          headline: 'Verbinde dich mit mir auf Ghost Chat',
+          invitedBy: ' hat dich zu Ghost Chat eingeladen',
+          subtitle: 'Keine Telefonnummern, keine Konten und keine zentralen Server. Tippe unten, um diesen Kontakt sicher hinzuzufügen.',
+          openBtn: 'In Ghost Chat öffnen',
+          copyBtn: 'Ghost-ID kopieren',
+          divider: 'Noch kein Ghost Chat?',
+          download: 'Ghost Chat herunterladen',
+          copied: 'Ghost-ID kopiert! In Ghost Chat → Kontakt hinzufügen einfügen.',
+          invalid: 'Dieser Einladungslink enthält keine gültige 64-stellige Ghost-ID.'
+        },
+        ar: {
+          rtl: true,
+          headline: 'انضم إليّ على Ghost Chat',
+          invitedBy: ' دعاك إلى Ghost Chat',
+          subtitle: 'بدون أرقام هواتف أو حسابات أو خوادم مركزية. اضغط أدناه لإضافة جهة الاتصال بأمان.',
+          openBtn: 'افتح في Ghost Chat',
+          copyBtn: 'نسخ معرف Ghost',
+          divider: 'ليس لديك Ghost Chat بعد؟',
+          download: 'تنزيل Ghost Chat',
+          copied: 'تم نسخ المعرف! الصقه داخل Ghost Chat.',
+          invalid: 'رابط الدعوة هذا لا يحتوي على معرف صالح مكون من 64 حرفًا.'
+        }
+      };
+      return dict[lang] || null;
+    }
+
     (function initInvitePage() {
+      const i18n = getLocalizedStrings();
+      if (i18n) {
+        if (i18n.rtl) document.documentElement.dir = 'rtl';
+        document.getElementById('headline').textContent = i18n.headline;
+        document.getElementById('subtitle').textContent = i18n.subtitle;
+        document.getElementById('openAppBtn').textContent = i18n.openBtn;
+        document.getElementById('copyBtn').textContent = i18n.copyBtn;
+        const divEl = document.querySelector('.divider');
+        if (divEl) divEl.textContent = i18n.divider;
+        const errEl = document.querySelector('.error');
+        if (errEl) errEl.textContent = i18n.invalid;
+      }
+
       const params = new URLSearchParams(window.location.search);
       const rawId = (params.get('id') || '').trim().toLowerCase();
       const rawName = (params.get('name') || '').trim().slice(0, 48);
@@ -250,7 +326,7 @@
       }
 
       if (rawName) {
-        headline.textContent = rawName + ' invited you to Ghost Chat';
+        headline.textContent = rawName + (i18n ? i18n.invitedBy : ' invited you to Ghost Chat');
       }
 
       const shortId = rawId.slice(0, 10) + '...' + rawId.slice(-10);
@@ -260,7 +336,6 @@
       if (rawName) {
         deepLink += '&name=' + encodeURIComponent(rawName);
       }
-      openAppBtn.href = deepLink;
 
       const platform = detectPlatform();
       let storeUrl = WEBSITE_DOWNLOAD_URL;
@@ -279,10 +354,18 @@
       }
       storeBtn.href = storeUrl;
 
+      const queryPart = 'id=' + encodeURIComponent(rawId) +
+        (rawName ? '&name=' + encodeURIComponent(rawName) : '');
+      const androidIntentLink =
+        'intent://add?' + queryPart +
+        '#Intent;scheme=ghostchat;package=com.juvianstudio.ghostchat;S.browser_fallback_url=' +
+        encodeURIComponent(storeUrl) + ';end';
+      openAppBtn.href = platform === 'android' ? androidIntentLink : deepLink;
+
       copyBtn.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(rawId);
-          statusMsg.textContent = 'Ghost ID copied! Paste it in Ghost Chat → Add Contact.';
+          statusMsg.textContent = i18n ? i18n.copied : 'Ghost ID copied! Paste it in Ghost Chat → Add Contact.';
         } catch (_) {
           statusMsg.textContent = rawId;
         }
