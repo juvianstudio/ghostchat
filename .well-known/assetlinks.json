@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.juvianstudio.ghostchat",
+      "sha256_cert_fingerprints": [
+        "F8:18:1A:F6:4F:24:46:A1:9B:03:10:0B:E9:71:5D:9E:68:7A:F8:65:2C:4B:AF:68:A6:C3:24:CD:9F:82:7F:A4"
+      ]
+    }
+  }
+]

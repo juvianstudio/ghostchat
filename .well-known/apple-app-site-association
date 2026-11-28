@@ -3,10 +3,23 @@
     "apps": [],
     "details": [
       {
+        "appIDs": [
+          "2VH6ZC4D4W.com.juvianstudio.ghostchat"
+        ],
         "appID": "2VH6ZC4D4W.com.juvianstudio.ghostchat",
+        "components": [
+          {
+            "/": "/ghostchat/add*"
+          },
+          {
+            "/": "/add*"
+          }
+        ],
         "paths": [
           "/ghostchat/add",
-          "/ghostchat/add/*"
+          "/ghostchat/add/*",
+          "/add",
+          "/add/*"
         ]
       }
     ]
