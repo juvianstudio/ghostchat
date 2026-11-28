@@ -1524,19 +1524,22 @@
         Yours.
       </h1>
 
-      <p class="hero-subtitle">
-        Ghost Chat is a serverless peer-to-peer messaging network. Zero cloud servers, zero central databases, and instant end-to-end encrypted multi-device companion pairing for Windows, macOS, and Linux via optical QR code.
+      <p class="hero-subtext">
+        Ghost Chat is a serverless peer-to-peer messaging &amp; HD voice/video calling network. Zero cloud servers, zero central databases, and instant end-to-end encrypted multi-device companion pairing for Windows, macOS, and Linux via optical QR code.
       </p>
 
       <!-- Deep Link Invite Card (Dynamically displayed when ?id= parameter is in URL) -->
       <div id="inviteCard" class="invite-card">
-        <h3><i class="fa-solid fa-user-plus"></i> Contact Invite Detected</h3>
-        <p>Someone invited you to connect on Ghost Chat!</p>
+        <h3 id="inviteCardHeading"><i class="fa-solid fa-user-plus"></i> Contact Invite Detected</h3>
+        <p id="inviteCardSubtitle">Someone invited you to connect on Ghost Chat!</p>
         <div id="inviteIdDisplay" class="invite-id-code">ID: Loading...</div>
-        <div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
           <a id="openAppBtn" href="#" class="btn-primary" style="display:inline-flex;">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Add Contact in Ghost Chat
           </a>
+          <button id="copyInviteIdBtn" type="button" class="btn-discord-hero" style="cursor:pointer; display:inline-flex; padding:0.9rem 1.4rem;">
+            <i class="fa-regular fa-copy"></i> Copy Ghost ID
+          </button>
         </div>
       </div>
 
@@ -1655,8 +1658,8 @@
 
         <div class="bento-card">
           <div class="bento-icon"><i class="fa-solid fa-phone-volume"></i></div>
-          <h3>Encrypted WebRTC Calls &amp; Strict P2P Mode</h3>
-          <p>End-to-end encrypted DTLS-SRTP voice and video calls with native iOS CallKit/PushKit lock-screen ringing, automatic ICE reconnection, optional NAT-traversal TURN fallback, and a Strict Direct P2P Only privacy toggle.</p>
+          <h3>HD Encrypted Video Calls &amp; Smart Audio</h3>
+          <p>End-to-end encrypted DTLS-SRTP 720p video and voice calls with edge-to-edge full-screen video mode, smart Bluetooth/Headset/AirPlay/Speaker routing, native iOS CallKit/PushKit &amp; Android lock-screen ringing with instant hangup sync, 45s ICE recovery, and Strict Direct P2P Only mode.</p>
         </div>
 
         <div class="bento-card">
@@ -1738,7 +1741,7 @@
           <div id="privacy-tab" class="tab-content active">
             <div id="privacy"></div>
             <h2>Privacy Policy</h2>
-            <div class="effective-date">Effective Date: November 27, 2026 | Published by Juvian Studio</div>
+            <div class="effective-date">Effective Date: November 28, 2026 | Published by Juvian Studio</div>
 
             <p>Ghost Chat ("we", "our", or "us") is committed to absolute user privacy and sovereign security. This Privacy Policy details our decentralized, zero-knowledge architecture and strict zero-data collection practices in compliance with Google Play Store, Apple App Store, Microsoft Store, and international privacy standards.</p>
 
@@ -1758,9 +1761,11 @@
 
             <h3>4. Device Permissions Explained</h3>
             <ul>
-              <li><strong>Camera:</strong> Used strictly for scanning contact invite QR codes, scanning desktop companion pairing QR codes, and user-initiated peer-to-peer video calls. Camera frames are never stored or transmitted to any server.</li>
+              <li><strong>Camera:</strong> Used strictly for scanning contact invite QR codes, scanning desktop companion pairing QR codes, and user-initiated peer-to-peer HD video calls. Camera frames are never stored or transmitted to any server.</li>
               <li><strong>Microphone:</strong> Used strictly for encrypted peer-to-peer voice/video calls and voice message recordings initiated by the user.</li>
+              <li><strong>Bluetooth &amp; Audio Routing:</strong> Used strictly during voice and video calls to detect and switch audio output between connected Bluetooth headphones/earbuds, wired/USB headsets, AirPlay/Wi-Fi speakers, loudspeaker, and phone receiver. Never used for background scanning or location tracking.</li>
               <li><strong>Storage / Media:</strong> Used solely to allow selecting file and media attachments to send over encrypted P2P connections, and for saving or importing encrypted <code>.ghostkey</code> password-protected key vault backups.</li>
+              <li><strong>Screen Security &amp; Capture Detection:</strong> Used optionally when enabled by the user to block OS screen capture (<code>FLAG_SECURE</code> / window capture exclusion) and notify chat participants when a screenshot is taken inside a private conversation.</li>
               <li><strong>Notifications:</strong> Used solely to deliver local, desktop (macOS Notification Center / Windows Toast), or wake alerts for incoming encrypted messages or call invitations. On Windows and macOS, closing the main window minimizes Ghost Chat to the System Tray / Dock so real-time messages and calls continue working until you explicitly Quit.</li>
             </ul>
 
@@ -1934,7 +1939,7 @@
             <p>Go to <strong>Settings &gt; Delete Identity &amp; All Data</strong>. The application confirms the purge and wipes all local AES-256 encrypted Hive vaults and cryptographic keys from hardware storage, returning the app to its fresh installation state.</p>
 
             <h3>Q: How do encrypted voice and video calls operate?</h3>
-            <p>Calls are established between devices using DTLS-SRTP encrypted WebRTC with end-to-end encrypted signaling (<code>v3:</code> Forward Secrecy) routed over decentralized relays, optional stateless TURN NAT traversal (which can be disabled via Strict Direct P2P Only), and native iOS CallKit/PushKit wake support. Camera and microphone permissions are requested only when a call is initiated or answered.</p>
+            <p>Calls are established between devices using DTLS-SRTP encrypted WebRTC (720p HD video &amp; 48 kHz Opus voice) with end-to-end encrypted signaling (<code>v3:</code> Forward Secrecy) routed over decentralized relays, smart in-call audio routing (Bluetooth, wired headsets, AirPlay, speaker, receiver), immersive full-screen video mode, optional stateless TURN NAT traversal (which can be disabled via Strict Direct P2P Only), and native iOS CallKit/PushKit + Android lock-screen incoming call UI. Camera and microphone permissions are requested only when a call is initiated or answered.</p>
 
             <h3>Q: How do reviewers contact developer support?</h3>
             <p>Reach out directly to the developer team for expedited responses during store review:</p>
@@ -2211,16 +2216,35 @@
       }
 
       const urlParams = new URLSearchParams(window.location.search);
-      const inviteId = urlParams.get('id');
+      const rawInviteId = (urlParams.get('id') || '').trim().toLowerCase();
+      const rawInviteName = (urlParams.get('name') || '').trim().slice(0, 48);
 
-      if (inviteId) {
+      if (/^[0-9a-f]{64}$/.test(rawInviteId)) {
         const card = document.getElementById('inviteCard');
+        const heading = document.getElementById('inviteCardHeading');
         const display = document.getElementById('inviteIdDisplay');
         const openBtn = document.getElementById('openAppBtn');
+        const copyBtn = document.getElementById('copyInviteIdBtn');
 
         if (card && display && openBtn) {
-          display.textContent = 'ID: ' + inviteId;
-          openBtn.href = 'ghostchat://add?id=' + encodeURIComponent(inviteId);
+          if (rawInviteName && heading) {
+            heading.textContent = rawInviteName + ' invited you to Ghost Chat';
+          }
+          display.textContent = 'ID: ' + rawInviteId;
+          const queryPart = 'id=' + encodeURIComponent(rawInviteId) +
+            (rawInviteName ? '&name=' + encodeURIComponent(rawInviteName) : '');
+          const isAndroidUa = /Android/i.test(navigator.userAgent || '');
+          openBtn.href = isAndroidUa
+            ? ('intent://add?' + queryPart + '#Intent;scheme=ghostchat;package=com.juvianstudio.ghostchat;S.browser_fallback_url=' + encodeURIComponent('https://juvianstudio.github.io/ghostchat/#download') + ';end')
+            : ('ghostchat://add?' + queryPart);
+          if (copyBtn) {
+            copyBtn.addEventListener('click', async () => {
+              try {
+                await navigator.clipboard.writeText(rawInviteId);
+                copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+              } catch (_) {}
+            });
+          }
           card.style.display = 'block';
         }
       }
